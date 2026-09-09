@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,9 +21,7 @@ html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-
     font-family:Arial,Helvetica,sans-serif;
-
     background:#06101d;
     color:#eef8ff;
 }
@@ -70,7 +67,6 @@ html,body{
     letter-spacing:5px;
     color:#70d9ff;
     margin-bottom:18px;
-    text-transform:uppercase;
 }
 
 .intro-title{
@@ -108,9 +104,7 @@ html,body{
 
 .enter-btn{
     margin-top:42px;
-
     padding:16px 38px;
-
     border:none;
     border-radius:50px;
 
@@ -171,7 +165,6 @@ html,body{
         scale(0);
 
     z-index:30;
-
     pointer-events:none;
 }
 
@@ -183,6 +176,7 @@ html,body{
 }
 
 @keyframes circleExpand{
+
     0%{
         transform:
             translate(-50%,-50%)
@@ -279,11 +273,8 @@ html,body{
 
 .lab-title{
     font-size:25px;
-
     font-weight:900;
-
     letter-spacing:4px;
-
     color:#eafaff;
 
     text-shadow:
@@ -326,22 +317,16 @@ html,body{
 
 .panel-label{
     font-size:12px;
-
     font-weight:900;
-
     letter-spacing:2px;
-
     color:#83dfff;
-
     margin-bottom:13px;
 }
 
 .particle-count{
     display:flex;
-
     align-items:center;
     justify-content:space-between;
-
     gap:10px;
 }
 
@@ -361,7 +346,6 @@ html,body{
     color:white;
 
     font-size:24px;
-
     font-weight:700;
 
     cursor:pointer;
@@ -386,7 +370,6 @@ html,body{
     text-align:center;
 
     font-size:28px;
-
     font-weight:900;
 
     color:#eafcff;
@@ -405,11 +388,12 @@ html,body{
 
     width:190px;
 
+    height:430px;
     min-height:430px;
 
     padding:22px;
 
-    border-radius:18px;
+    border-radius:18px 18px 0 0;
 
     background:
         rgba(7,24,39,.72);
@@ -427,9 +411,7 @@ html,body{
     z-index:5;
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
 }
 
@@ -440,7 +422,6 @@ html,body{
     flex-direction:column;
 
     align-items:center;
-
     justify-content:center;
 
     gap:8px;
@@ -448,7 +429,6 @@ html,body{
 
 .temp-value{
     font-size:28px;
-
     font-weight:900;
 
     transition:
@@ -457,9 +437,7 @@ html,body{
 
 .temp-unit{
     font-size:14px;
-
     color:#a8c3d3;
-
     margin-left:3px;
 }
 
@@ -477,20 +455,9 @@ html,body{
     margin-top:15px;
 
     display:flex;
-
     justify-content:center;
-
     align-items:center;
 }
-
-
-/*
-   IMPORTANT:
-   The actual slider is positioned at the exact
-   horizontal center of the slider area.
-   Since the range is 0–600, 300 K is exactly
-   the physical midpoint.
-*/
 
 .temp-slider{
     appearance:none;
@@ -624,9 +591,7 @@ html,body{
     color:#ffffff;
 
     font-size:12px;
-
     font-weight:900;
-
     letter-spacing:1px;
 
     pointer-events:none;
@@ -649,23 +614,19 @@ html,body{
     position:absolute;
 
     right:15px;
-
     top:22px;
 
     height:270px;
 
     display:flex;
-
     flex-direction:column;
 
     justify-content:space-between;
-
     align-items:flex-start;
 
     color:#b9d4e3;
 
     font-size:10px;
-
     font-weight:900;
 
     pointer-events:none;
@@ -675,6 +636,88 @@ html,body{
     min-width:25px;
 
     text-align:left;
+}
+
+
+/* =========================================================
+   AVERAGE KINETIC ENERGY
+========================================================= */
+
+.average-ke-display{
+
+    position:absolute;
+
+    right:24px;
+
+    top:522px;
+
+    width:190px;
+
+    min-height:108px;
+
+    padding:15px 12px 17px;
+
+    border-radius:0 0 18px 18px;
+
+    background:
+        rgba(7,24,39,.88);
+
+    border:
+        1px solid
+        rgba(100,190,235,.22);
+
+    border-top:
+        1px solid
+        rgba(100,190,235,.16);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.28);
+
+    backdrop-filter:blur(14px);
+
+    text-align:center;
+
+    z-index:5;
+}
+
+.average-ke-label{
+
+    font-size:15px;
+
+    line-height:1.3;
+
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+    color:#83dfff;
+
+    margin-bottom:10px;
+
+    text-shadow:
+        0 0 10px
+        rgba(90,220,255,.25);
+}
+
+.average-ke-value{
+
+    font-size:22px;
+
+    line-height:1.3;
+
+    font-weight:900;
+
+    color:#ffffff;
+
+    white-space:nowrap;
+
+    transition:
+        color .25s ease;
+
+    text-shadow:
+        0 0 12px
+        rgba(255,255,255,.18);
 }
 
 
@@ -769,6 +812,11 @@ html,body{
         width:175px;
     }
 
+    .average-ke-display{
+        right:12px;
+        width:175px;
+    }
+
     .sim-card{
         width:min(700px,56vw);
     }
@@ -777,6 +825,7 @@ html,body{
         right:205px;
     }
 }
+
 
 @media(max-width:800px){
 
@@ -794,6 +843,20 @@ html,body{
         padding:16px;
     }
 
+    .average-ke-display{
+        top:512px;
+        right:10px;
+        width:155px;
+    }
+
+    .average-ke-label{
+        font-size:13px;
+    }
+
+    .average-ke-value{
+        font-size:18px;
+    }
+
     .sim-card{
         width:70vw;
         min-width:400px;
@@ -809,6 +872,7 @@ html,body{
     }
 }
 
+
 @media(max-width:600px){
 
     .control-panel,
@@ -819,6 +883,16 @@ html,body{
 
     .temp-panel{
         transform-origin:top right;
+    }
+
+    .average-ke-display{
+        transform:scale(.82);
+        transform-origin:top right;
+
+        right:10px;
+        top:512px;
+
+        width:155px;
     }
 
     .sim-card{
@@ -1011,6 +1085,29 @@ html,body{
 
 
     <!-- =====================================================
+         AVERAGE KINETIC ENERGY
+    ====================================================== -->
+
+    <div
+        class="average-ke-display"
+        id="averageKineticEnergyDisplay"
+    >
+
+        <div class="average-ke-label">
+            AVERAGE KINETIC ENERGY
+        </div>
+
+        <div
+            class="average-ke-value"
+            id="averageKineticEnergy"
+        >
+            6.213 × 10⁻²¹ J
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
          SIMULATION CHAMBER
     ====================================================== -->
 
@@ -1030,12 +1127,11 @@ html,body{
         MODERATE
     </div>
 
-
 </section>
 
 
-
 <script>
+
 
 /* =========================================================
    AUDIO
@@ -1060,9 +1156,10 @@ function initializeAudio(){
 
             audioContext =
                 new AudioContext();
-        }
-    }
 
+        }
+
+    }
 
     if(
         audioContext &&
@@ -1070,7 +1167,9 @@ function initializeAudio(){
     ){
 
         audioContext.resume();
+
     }
+
 }
 
 
@@ -1086,7 +1185,6 @@ function playEnterSound(){
         return;
     }
 
-
     const now =
         audioContext.currentTime;
 
@@ -1096,52 +1194,45 @@ function playEnterSound(){
     const osc1 =
         audioContext.createOscillator();
 
-
     const gain1 =
         audioContext.createGain();
 
-
     osc1.type =
         "sine";
-
 
     osc1.frequency.setValueAtTime(
         520,
         now
     );
 
-
     osc1.frequency.exponentialRampToValueAtTime(
         900,
         now+.18
     );
-
 
     gain1.gain.setValueAtTime(
         .0001,
         now
     );
 
-
     gain1.gain.exponentialRampToValueAtTime(
         .16,
         now+.025
     );
-
 
     gain1.gain.exponentialRampToValueAtTime(
         .0001,
         now+.28
     );
 
-
     osc1.connect(gain1);
+
     gain1.connect(
         audioContext.destination
     );
 
-
     osc1.start(now);
+
     osc1.stop(now+.3);
 
 
@@ -1150,53 +1241,47 @@ function playEnterSound(){
     const osc2 =
         audioContext.createOscillator();
 
-
     const gain2 =
         audioContext.createGain();
 
-
     osc2.type =
         "sine";
-
 
     osc2.frequency.setValueAtTime(
         780,
         now+.08
     );
 
-
     osc2.frequency.exponentialRampToValueAtTime(
         1250,
         now+.24
     );
-
 
     gain2.gain.setValueAtTime(
         .0001,
         now
     );
 
-
     gain2.gain.exponentialRampToValueAtTime(
         .10,
         now+.10
     );
-
 
     gain2.gain.exponentialRampToValueAtTime(
         .0001,
         now+.34
     );
 
-
     osc2.connect(gain2);
+
     gain2.connect(
         audioContext.destination
     );
 
-
     osc2.start(now+.08);
+
     osc2.stop(now+.36);
+
 }
 
 
@@ -1214,18 +1299,14 @@ function playParticleSound(
         return;
     }
 
-
     const now =
         audioContext.currentTime;
-
 
     const osc =
         audioContext.createOscillator();
 
-
     const gain =
         audioContext.createGain();
-
 
     osc.type =
         "sine";
@@ -1233,33 +1314,25 @@ function playParticleSound(
 
     if(type==="add"){
 
-        /*
-           Cute upward pop.
-        */
-
         osc.frequency.setValueAtTime(
             420,
             now
         );
-
 
         osc.frequency.exponentialRampToValueAtTime(
             720,
             now+.09
         );
 
-
         gain.gain.setValueAtTime(
             .0001,
             now
         );
 
-
         gain.gain.exponentialRampToValueAtTime(
             .09,
             now+.012
         );
-
 
         gain.gain.exponentialRampToValueAtTime(
             .0001,
@@ -1268,55 +1341,45 @@ function playParticleSound(
 
     }else{
 
-        /*
-           Slightly lower disappearing pop.
-        */
-
         osc.frequency.setValueAtTime(
             600,
             now
         );
-
 
         osc.frequency.exponentialRampToValueAtTime(
             300,
             now+.10
         );
 
-
         gain.gain.setValueAtTime(
             .0001,
             now
         );
-
 
         gain.gain.exponentialRampToValueAtTime(
             .065,
             now+.012
         );
 
-
         gain.gain.exponentialRampToValueAtTime(
             .0001,
             now+.14
         );
+
     }
 
-
     osc.connect(gain);
-
 
     gain.connect(
         audioContext.destination
     );
 
-
     osc.start(now);
-
 
     osc.stop(
         now+.16
     );
+
 }
 
 
@@ -1328,33 +1391,27 @@ function enterLab(){
 
     playEnterSound();
 
-
     const intro =
         document.getElementById(
             "intro"
         );
-
 
     const transition =
         document.getElementById(
             "circleTransition"
         );
 
-
     const lab =
         document.getElementById(
             "lab"
         );
 
-
     lab.style.display =
         "block";
-
 
     transition.classList.add(
         "expand"
     );
-
 
     setTimeout(
         ()=>{
@@ -1364,7 +1421,6 @@ function enterLab(){
         650
     );
 
-
     setTimeout(
         ()=>{
             transition.style.display =
@@ -1373,8 +1429,8 @@ function enterLab(){
         1100
     );
 
-
     resizeCanvas();
+
 }
 
 
@@ -1387,12 +1443,10 @@ const canvas =
         "simulationCanvas"
     );
 
-
 const ctx =
     canvas.getContext(
         "2d"
     );
-
 
 let canvasWidth=0;
 let canvasHeight=0;
@@ -1403,21 +1457,17 @@ function resizeCanvas(){
     const rect =
         canvas.getBoundingClientRect();
 
-
     const dpr =
         Math.min(
             window.devicePixelRatio || 1,
             2
         );
 
-
     canvas.width =
         rect.width*dpr;
 
-
     canvas.height =
         rect.height*dpr;
-
 
     ctx.setTransform(
         dpr,
@@ -1428,15 +1478,13 @@ function resizeCanvas(){
         0
     );
 
-
     canvasWidth =
         rect.width;
 
-
     canvasHeight =
         rect.height;
-}
 
+}
 
 window.addEventListener(
     "resize",
@@ -1450,29 +1498,100 @@ window.addEventListener(
 
 let temperature=300;
 
-
 const temperatureSlider =
     document.getElementById(
         "temperatureSlider"
     );
-
 
 const temperatureValue =
     document.getElementById(
         "temperatureValue"
     );
 
-
 const sliderCenterValue =
     document.getElementById(
         "sliderCenterValue"
     );
 
-
 const tempStatus =
     document.getElementById(
         "tempStatus"
     );
+
+const averageKineticEnergy =
+    document.getElementById(
+        "averageKineticEnergy"
+    );
+
+
+/* =========================================================
+   BOLTZMANN CONSTANT
+========================================================= */
+
+const kB =
+    1.380649e-23;
+
+
+/* =========================================================
+   AVERAGE KINETIC ENERGY
+========================================================= */
+
+function calculateAverageKineticEnergy(T){
+
+    return (
+        (3/2) *
+        kB *
+        T
+    );
+
+}
+
+
+/* =========================================================
+   SCIENTIFIC NOTATION FORMAT
+========================================================= */
+
+function formatScientific(value){
+
+    if(value===0){
+        return "0 J";
+    }
+
+    const exponent =
+        Math.floor(
+            Math.log10(
+                Math.abs(value)
+            )
+        );
+
+    const coefficient =
+        value /
+        Math.pow(
+            10,
+            exponent
+        );
+
+    const roundedCoefficient =
+        coefficient.toFixed(3);
+
+    const exponentDisplay =
+        exponent
+            .toString()
+            .replace(/-/g,"⁻")
+            .replace(/0/g,"⁰")
+            .replace(/1/g,"¹")
+            .replace(/2/g,"²")
+            .replace(/3/g,"³")
+            .replace(/4/g,"⁴")
+            .replace(/5/g,"⁵")
+            .replace(/6/g,"⁶")
+            .replace(/7/g,"⁷")
+            .replace(/8/g,"⁸")
+            .replace(/9/g,"⁹");
+
+    return `${roundedCoefficient} × 10${exponentDisplay} J`;
+
+}
 
 
 /* =========================================================
@@ -1487,17 +1606,11 @@ function temperatureSpeedFactor(){
         return 0;
     }
 
-
     let factor =
         Math.sqrt(
             temperature/300
         );
 
-
-    /*
-       Extra visual increase above
-       the 300 K reference.
-    */
 
     if(
         temperature>300
@@ -1506,14 +1619,14 @@ function temperatureSpeedFactor(){
         const highTemp =
             (temperature-300)/300;
 
-
         factor *=
             1+
             highTemp*.65;
+
     }
 
-
     return factor;
+
 }
 
 
@@ -1526,74 +1639,70 @@ function getTemperatureColor(T){
     if(T<=50){
 
         return "#4aaeff";
-    }
 
+    }
 
     if(T<=150){
 
         const p =
             (T-50)/100;
 
-
         return interpolateColor(
             "#4aaeff",
             "#72d6e8",
             p
         );
-    }
 
+    }
 
     if(T<=300){
 
         const p =
             (T-150)/150;
 
-
         return interpolateColor(
             "#72d6e8",
             "#9bd43a",
             p
         );
-    }
 
+    }
 
     if(T<=400){
 
         const p =
             (T-300)/100;
 
-
         return interpolateColor(
             "#9bd43a",
             "#ffd34a",
             p
         );
-    }
 
+    }
 
     if(T<=500){
 
         const p =
             (T-400)/100;
 
-
         return interpolateColor(
             "#ffd34a",
             "#ff8a2d",
             p
         );
-    }
 
+    }
 
     const p =
         (T-500)/100;
-
 
     return interpolateColor(
         "#ff8a2d",
         "#e63838",
         p
     );
+
 }
 
 
@@ -1610,10 +1719,8 @@ function interpolateColor(
     const ah =
         a.replace("#","");
 
-
     const bh =
-        b.replace("#","");
-
+        b.replace("#");
 
     const ar =
         parseInt(
@@ -1621,13 +1728,11 @@ function interpolateColor(
             16
         );
 
-
     const ag =
         parseInt(
             ah.substring(2,4),
             16
         );
-
 
     const ab =
         parseInt(
@@ -1635,13 +1740,11 @@ function interpolateColor(
             16
         );
 
-
     const br =
         parseInt(
             bh.substring(0,2),
             16
         );
-
 
     const bg =
         parseInt(
@@ -1649,33 +1752,29 @@ function interpolateColor(
             16
         );
 
-
     const bb =
         parseInt(
             bh.substring(4,6),
             16
         );
 
-
     const r =
         Math.round(
             ar+(br-ar)*t
         );
-
 
     const g =
         Math.round(
             ag+(bg-ag)*t
         );
 
-
     const b2 =
         Math.round(
             ab+(bb-ab)*t
         );
 
-
     return `rgb(${r},${g},${b2})`;
+
 }
 
 
@@ -1688,9 +1787,23 @@ function updateTemperatureUI(){
     temperatureValue.innerHTML =
         `${temperature}<span class="temp-unit">K</span>`;
 
-
     sliderCenterValue.textContent =
         `${temperature} K`;
+
+
+    /* =====================================================
+       AVERAGE KINETIC ENERGY UPDATE
+    ===================================================== */
+
+    const kineticEnergy =
+        calculateAverageKineticEnergy(
+            temperature
+        );
+
+    averageKineticEnergy.textContent =
+        formatScientific(
+            kineticEnergy
+        );
 
 
     const color =
@@ -1698,22 +1811,17 @@ function updateTemperatureUI(){
             temperature
         );
 
-
     temperatureValue.style.color =
         color;
 
-
     sliderCenterValue.style.color =
         color;
-
 
     tempStatus.style.color =
         color;
 
 
-    /* =====================================
-       STATUS
-    ===================================== */
+    /* STATUS */
 
     if(
         temperature<=300
@@ -1721,40 +1829,38 @@ function updateTemperatureUI(){
 
         tempStatus.textContent =
             "COLD";
-    }
 
+    }
     else if(
         temperature<400
     ){
 
         tempStatus.textContent =
             "WARM";
-    }
 
+    }
     else if(
         temperature<550
     ){
 
         tempStatus.textContent =
             "HOT";
-    }
 
+    }
     else{
 
         tempStatus.textContent =
             "VERY HOT";
+
     }
 
 
-    /* =====================================
-       THUMB COLOR
-    ===================================== */
+    /* THUMB COLOR */
 
     let styleTag =
         document.getElementById(
             "dynamicSliderStyle"
         );
-
 
     if(!styleTag){
 
@@ -1769,8 +1875,8 @@ function updateTemperatureUI(){
         document.head.appendChild(
             styleTag
         );
-    }
 
+    }
 
     styleTag.textContent = `
 
@@ -1781,6 +1887,7 @@ function updateTemperatureUI(){
             box-shadow:
                 0 0 0 3px rgba(0,0,0,.18),
                 0 0 22px ${color};
+
         }
 
         #temperatureSlider::-moz-range-thumb{
@@ -1790,9 +1897,11 @@ function updateTemperatureUI(){
             box-shadow:
                 0 0 0 3px rgba(0,0,0,.18),
                 0 0 22px ${color};
+
         }
 
     `;
+
 }
 
 
@@ -1809,8 +1918,8 @@ temperatureSlider.addEventListener(
                 temperatureSlider.value
             );
 
-
         updateTemperatureUI();
+
     }
 );
 
@@ -1825,6 +1934,7 @@ const chamber={
     cy:0,
     rx:0,
     ry:0
+
 };
 
 
@@ -1833,10 +1943,8 @@ function updateChamber(){
     chamber.cx =
         canvasWidth*.50;
 
-
     chamber.cy =
         canvasHeight*.44;
-
 
     chamber.rx =
         Math.min(
@@ -1844,12 +1952,12 @@ function updateChamber(){
             175
         );
 
-
     chamber.ry =
         Math.min(
             canvasHeight*.30,
             195
         );
+
 }
 
 
@@ -1859,9 +1967,7 @@ function updateChamber(){
 
 const particles=[];
 
-
 const MAX_PARTICLES=30;
-
 
 const PARTICLE_RADIUS=7;
 
@@ -1873,6 +1979,7 @@ function random(
 
     return Math.random()*
         (max-min)+min;
+
 }
 
 
@@ -1887,9 +1994,7 @@ class Particle{
         this.radius =
             PARTICLE_RADIUS;
 
-
         this.mass=1;
-
 
         this.baseSpeed =
             random(
@@ -1897,23 +2002,16 @@ class Particle{
                 125
             );
 
-
         this.speedVariation =
             random(
                 .92,
                 1.08
             );
 
-
-        /*
-           Particle enters from side inlet.
-        */
-
         this.x =
             chamber.cx-
             chamber.rx-
             55;
-
 
         this.y =
             chamber.cy+
@@ -1922,26 +2020,21 @@ class Particle{
                 chamber.ry*.65
             );
 
-
         const angle =
             random(
                 -Math.PI*.45,
                 Math.PI*.45
             );
 
-
         this.vx =
             Math.cos(angle)*100;
-
 
         this.vy =
             Math.sin(angle)*100;
 
-
         this.entering=true;
 
         this.active=false;
-
 
         this.entryTargetX =
             chamber.cx-
@@ -1949,10 +2042,10 @@ class Particle{
             this.radius+
             3;
 
-
         this.trail=[];
 
         this.maxTrail=3;
+
     }
 
 
@@ -1962,13 +2055,11 @@ class Particle{
 
         this.entering=false;
 
-
         this.x =
             chamber.cx-
             chamber.rx+
             this.radius+
             4;
-
 
         this.y =
             chamber.cy+
@@ -1977,24 +2068,21 @@ class Particle{
                 chamber.ry*.7
             );
 
-
         const angle =
             random(
                 0,
                 Math.PI*2
             );
 
-
         const speed =
             this.getTargetSpeed();
-
 
         this.vx =
             Math.cos(angle)*speed;
 
-
         this.vy =
             Math.sin(angle)*speed;
+
     }
 
 
@@ -2003,14 +2091,11 @@ class Particle{
         return this.baseSpeed*
             this.speedVariation*
             temperatureSpeedFactor();
+
     }
 
 
     update(dt){
-
-        /* =================================
-           ENTERING
-        ================================= */
 
         if(
             this.entering
@@ -2019,10 +2104,8 @@ class Particle{
             const targetX =
                 this.entryTargetX;
 
-
             const dx =
                 targetX-this.x;
-
 
             this.x +=
                 dx*
@@ -2031,20 +2114,19 @@ class Particle{
                     dt*7
                 );
 
-
             this.y +=
                 this.vy*dt;
-
 
             if(
                 Math.abs(dx)<3
             ){
 
                 this.activateInsideChamber();
+
             }
 
-
             return;
+
         }
 
 
@@ -2052,9 +2134,7 @@ class Particle{
             temperatureSpeedFactor();
 
 
-        /* =================================
-           ZERO K
-        ================================= */
+        /* ZERO K */
 
         if(
             speedFactor===0
@@ -2066,33 +2146,32 @@ class Particle{
                     dt*60
                 );
 
-
             this.vx *=
                 damping;
-
 
             this.vy *=
                 damping;
 
-
             if(
                 Math.abs(this.vx)<.015
             ){
-                this.vx=0;
-            }
 
+                this.vx=0;
+
+            }
 
             if(
                 Math.abs(this.vy)<.015
             ){
+
                 this.vy=0;
+
             }
+
         }
 
 
-        /* =================================
-           NONZERO TEMPERATURE
-        ================================= */
+        /* NONZERO TEMPERATURE */
 
         else{
 
@@ -2101,7 +2180,6 @@ class Particle{
                     this.vx,
                     this.vy
                 );
-
 
             if(
                 currentSpeed<.05
@@ -2113,22 +2191,18 @@ class Particle{
                         Math.PI*2
                     );
 
-
                 this.vx =
                     Math.cos(angle)*.1;
-
 
                 this.vy =
                     Math.sin(angle)*.1;
 
-
                 currentSpeed=.1;
-            }
 
+            }
 
             const targetSpeed =
                 this.getTargetSpeed();
-
 
             const blend =
                 1-
@@ -2136,7 +2210,6 @@ class Particle{
                     .018,
                     dt
                 );
-
 
             const scale =
                 1+
@@ -2147,34 +2220,27 @@ class Particle{
                 )*
                 blend;
 
-
             this.vx *=
                 scale;
 
-
             this.vy *=
                 scale;
+
         }
 
 
-        /* =================================
-           MOVEMENT
-        ================================= */
+        /* MOVEMENT */
 
         this.x +=
             this.vx*dt;
 
-
         this.y +=
             this.vy*dt;
-
 
         this.keepInsideChamber();
 
 
-        /* =================================
-           TRAIL
-        ================================= */
+        /* TRAIL */
 
         this.trail.push({
 
@@ -2183,14 +2249,15 @@ class Particle{
 
         });
 
-
         if(
             this.trail.length>
             this.maxTrail
         ){
 
             this.trail.shift();
+
         }
+
     }
 
 
@@ -2202,20 +2269,17 @@ class Particle{
             this.radius+
             4;
 
-
         const right =
             chamber.cx+
             chamber.rx-
             this.radius-
             4;
 
-
         const top =
             chamber.cy-
             chamber.ry+
             this.radius+
             5;
-
 
         const bottom =
             chamber.cy+
@@ -2234,6 +2298,7 @@ class Particle{
                 Math.abs(
                     this.vx
                 );
+
         }
 
 
@@ -2247,6 +2312,7 @@ class Particle{
                 -Math.abs(
                     this.vx
                 );
+
         }
 
 
@@ -2260,6 +2326,7 @@ class Particle{
                 Math.abs(
                     this.vy
                 );
+
         }
 
 
@@ -2273,7 +2340,9 @@ class Particle{
                 -Math.abs(
                     this.vy
                 );
+
         }
+
     }
 
 
@@ -2282,13 +2351,13 @@ class Particle{
         if(
             !this.active
         ){
+
             return;
+
         }
 
 
-        /* =================================
-           TRAIL
-        ================================= */
+        /* TRAIL */
 
         for(
             let i=0;
@@ -2299,15 +2368,12 @@ class Particle{
             const p =
                 this.trail[i];
 
-
             const alpha =
                 (i+1)/
                 this.trail.length*
                 .10;
 
-
             ctx.beginPath();
-
 
             ctx.arc(
                 p.x,
@@ -2317,7 +2383,6 @@ class Particle{
                 Math.PI*2
             );
 
-
             ctx.fillStyle =
                 `rgba(
                     60,
@@ -2326,14 +2391,12 @@ class Particle{
                     ${alpha}
                 )`;
 
-
             ctx.fill();
+
         }
 
 
-        /* =================================
-           PARTICLE
-        ================================= */
+        /* PARTICLE */
 
         const gradient =
             ctx.createRadialGradient(
@@ -2350,42 +2413,35 @@ class Particle{
                 this.y,
 
                 this.radius*1.5
-            );
 
+            );
 
         gradient.addColorStop(
             0,
             "#ffffff"
         );
 
-
         gradient.addColorStop(
             .25,
             "#b8f4ff"
         );
-
 
         gradient.addColorStop(
             .65,
             "#27cfff"
         );
 
-
         gradient.addColorStop(
             1,
             "#087bd4"
         );
 
-
         ctx.shadowColor =
             "#27cfff";
 
-
         ctx.shadowBlur=12;
 
-
         ctx.beginPath();
-
 
         ctx.arc(
             this.x,
@@ -2395,16 +2451,15 @@ class Particle{
             Math.PI*2
         );
 
-
         ctx.fillStyle =
             gradient;
 
-
         ctx.fill();
 
-
         ctx.shadowBlur=0;
+
     }
+
 }
 
 
@@ -2418,29 +2473,22 @@ function addParticle(){
         particles.length>=
         MAX_PARTICLES
     ){
+
         return;
+
     }
 
-
     initializeAudio();
-
 
     const p =
         new Particle();
 
-
     particles.push(p);
-
 
     updateParticleCount();
 
-
-    /*
-       Sound happens once for every
-       successful particle addition.
-    */
-
     playParticleSound("add");
+
 }
 
 
@@ -2453,17 +2501,17 @@ function removeParticle(){
     if(
         particles.length===0
     ){
-        return;
-    }
 
+        return;
+
+    }
 
     particles.pop();
 
-
     updateParticleCount();
 
-
     playParticleSound("remove");
+
 }
 
 
@@ -2477,6 +2525,7 @@ function updateParticleCount(){
         "particleCount"
     ).textContent =
         particles.length;
+
 }
 
 
@@ -2495,11 +2544,12 @@ function handleParticleCollisions(){
         const a =
             particles[i];
 
-
         if(
             !a.active
         ){
+
             continue;
+
         }
 
 
@@ -2512,28 +2562,26 @@ function handleParticleCollisions(){
             const b =
                 particles[j];
 
-
             if(
                 !b.active
             ){
+
                 continue;
+
             }
 
 
             let dx =
                 b.x-a.x;
 
-
             let dy =
                 b.y-a.y;
-
 
             let distance =
                 Math.hypot(
                     dx,
                     dy
                 );
-
 
             const minDistance =
                 a.radius+
@@ -2547,16 +2595,15 @@ function handleParticleCollisions(){
                 dx=
                     random(-1,1);
 
-
                 dy=
                     random(-1,1);
-
 
                 distance =
                     Math.hypot(
                         dx,
                         dy
                     );
+
             }
 
 
@@ -2568,62 +2615,47 @@ function handleParticleCollisions(){
                 const nx =
                     dx/distance;
 
-
                 const ny =
                     dy/distance;
 
 
-                /* =================================
-                   SEPARATION
-                ================================= */
+                /* SEPARATION */
 
                 const overlap =
                     minDistance-
                     distance;
 
-
                 a.x -=
                     nx*
                     overlap*.5;
-
 
                 a.y -=
                     ny*
                     overlap*.5;
 
-
                 b.x +=
                     nx*
                     overlap*.5;
-
 
                 b.y +=
                     ny*
                     overlap*.5;
 
 
-                /* =================================
-                   RELATIVE VELOCITY
-                ================================= */
+                /* RELATIVE VELOCITY */
 
                 const rvx =
                     b.vx-a.vx;
 
-
                 const rvy =
                     b.vy-a.vy;
-
 
                 const velocityAlongNormal =
                     rvx*nx+
                     rvy*ny;
 
 
-                /*
-                   Equal-mass elastic collision.
-
-                   No energy is intentionally lost.
-                */
+                /* ELASTIC COLLISION */
 
                 if(
                     velocityAlongNormal<0
@@ -2632,25 +2664,26 @@ function handleParticleCollisions(){
                     const impulse =
                         -velocityAlongNormal;
 
-
                     a.vx -=
                         impulse*nx;
-
 
                     a.vy -=
                         impulse*ny;
 
-
                     b.vx +=
                         impulse*nx;
 
-
                     b.vy +=
                         impulse*ny;
+
                 }
+
             }
+
         }
+
     }
+
 }
 
 
@@ -2664,70 +2697,56 @@ function drawChamber(){
         chamber.cx-
         chamber.rx;
 
-
     const right =
         chamber.cx+
         chamber.rx;
 
-
     const top =
         chamber.cy-
         chamber.ry;
-
 
     const bottom =
         chamber.cy+
         chamber.ry;
 
 
-    /* =====================================
-       OUTER GLOW
-    ===================================== */
+    /* OUTER GLOW */
 
     const glow =
         ctx.createRadialGradient(
 
             chamber.cx,
             chamber.cy,
-
             chamber.rx*.25,
 
             chamber.cx,
             chamber.cy,
-
             chamber.rx*1.7
-        );
 
+        );
 
     glow.addColorStop(
         0,
         "rgba(30,160,230,.08)"
     );
 
-
     glow.addColorStop(
         1,
         "rgba(30,120,190,0)"
     );
 
-
     ctx.fillStyle =
         glow;
 
-
     ctx.fillRect(
-
         left-100,
         top-100,
-
         chamber.rx*2+200,
         chamber.ry*2+200
     );
 
 
-    /* =====================================
-       GLASS BODY
-    ===================================== */
+    /* GLASS BODY */
 
     const bodyGradient =
         ctx.createLinearGradient(
@@ -2737,171 +2756,129 @@ function drawChamber(){
             0
         );
 
-
     bodyGradient.addColorStop(
         0,
         "rgba(40,140,190,.10)"
     );
-
 
     bodyGradient.addColorStop(
         .15,
         "rgba(80,190,230,.035)"
     );
 
-
     bodyGradient.addColorStop(
         .5,
         "rgba(80,210,255,.025)"
     );
-
 
     bodyGradient.addColorStop(
         .85,
         "rgba(80,190,230,.035)"
     );
 
-
     bodyGradient.addColorStop(
         1,
         "rgba(40,140,190,.10)"
     );
 
-
     ctx.fillStyle =
         bodyGradient;
 
-
     ctx.fillRect(
-
         left,
         top,
-
         chamber.rx*2,
         chamber.ry*2
     );
 
 
-    /* =====================================
-       SIDES
-    ===================================== */
+    /* SIDES */
 
     ctx.shadowColor =
         "rgba(50,190,255,.75)";
 
-
     ctx.shadowBlur=13;
-
 
     ctx.strokeStyle =
         "rgba(76,207,255,.75)";
 
-
     ctx.lineWidth=2;
-
 
     ctx.beginPath();
 
-
     ctx.moveTo(
         left,
         top
     );
-
 
     ctx.lineTo(
         left,
         bottom
     );
 
-
     ctx.moveTo(
         right,
         top
     );
 
-
     ctx.lineTo(
         right,
         bottom
     );
-
 
     ctx.stroke();
-
 
     ctx.shadowBlur=0;
 
 
-    /* =====================================
-       TOP
-    ===================================== */
+    /* TOP */
 
     ctx.beginPath();
 
-
     ctx.ellipse(
-
         chamber.cx,
         top,
-
         chamber.rx,
         chamber.rx*.27,
-
         0,
         0,
         Math.PI*2
     );
-
 
     ctx.fillStyle =
         "rgba(70,190,235,.07)";
 
-
     ctx.fill();
-
 
     ctx.strokeStyle =
         "rgba(92,218,255,.75)";
 
-
     ctx.lineWidth=2;
-
 
     ctx.stroke();
 
 
-    /* =====================================
-       BOTTOM
-    ===================================== */
+    /* BOTTOM */
 
     ctx.beginPath();
 
-
     ctx.ellipse(
-
         chamber.cx,
         bottom,
-
         chamber.rx,
         chamber.rx*.27,
-
         0,
         0,
         Math.PI*2
     );
 
-
     ctx.strokeStyle =
         "rgba(74,205,255,.62)";
-
 
     ctx.stroke();
 
 
-    /* =====================================
-       GLASS HIGHLIGHT
-    ===================================== */
+    /* GLASS HIGHLIGHT */
 
     const highlight =
         ctx.createLinearGradient(
@@ -2911,78 +2888,63 @@ function drawChamber(){
             0
         );
 
-
     highlight.addColorStop(
         0,
         "rgba(255,255,255,.28)"
     );
-
 
     highlight.addColorStop(
         .08,
         "rgba(255,255,255,.04)"
     );
 
-
     highlight.addColorStop(
         .5,
         "rgba(255,255,255,0)"
     );
-
 
     highlight.addColorStop(
         .92,
         "rgba(255,255,255,.04)"
     );
 
-
     highlight.addColorStop(
         1,
         "rgba(255,255,255,.20)"
     );
 
-
     ctx.fillStyle =
         highlight;
 
-
     ctx.fillRect(
-
         left+2,
         top+5,
-
         chamber.rx*2-4,
         chamber.ry*2-10
     );
 
 
-    /* =====================================
-       REFLECTION
-    ===================================== */
+    /* REFLECTION */
 
     ctx.strokeStyle =
         "rgba(190,245,255,.15)";
 
-
     ctx.lineWidth=5;
 
-
     ctx.beginPath();
-
 
     ctx.moveTo(
         left+20,
         top+30
     );
 
-
     ctx.lineTo(
         left+20,
         bottom-30
     );
 
-
     ctx.stroke();
+
 }
 
 
@@ -2996,10 +2958,8 @@ function drawInletTube(){
         chamber.cx-
         chamber.rx;
 
-
     const tubeY =
         chamber.cy;
-
 
     const tubeStart =
         left-90;
@@ -3008,34 +2968,26 @@ function drawInletTube(){
     ctx.shadowColor =
         "rgba(50,190,255,.5)";
 
-
     ctx.shadowBlur=12;
-
 
     ctx.strokeStyle =
         "rgba(70,190,235,.38)";
 
-
     ctx.lineWidth=16;
 
-
     ctx.beginPath();
-
 
     ctx.moveTo(
         tubeStart,
         tubeY
     );
 
-
     ctx.lineTo(
         left+5,
         tubeY
     );
 
-
     ctx.stroke();
-
 
     ctx.shadowBlur=0;
 
@@ -3045,36 +2997,29 @@ function drawInletTube(){
     ctx.strokeStyle =
         "rgba(100,220,255,.52)";
 
-
     ctx.lineWidth=2;
-
 
     ctx.beginPath();
 
-
     ctx.moveTo(
         tubeStart,
         tubeY-9
     );
-
 
     ctx.lineTo(
         left+5,
         tubeY-9
     );
 
-
     ctx.moveTo(
         tubeStart,
         tubeY+9
     );
 
-
     ctx.lineTo(
         left+5,
         tubeY+9
     );
-
 
     ctx.stroke();
 
@@ -3083,26 +3028,21 @@ function drawInletTube(){
 
     ctx.beginPath();
 
-
     ctx.ellipse(
-
         tubeStart,
         tubeY,
-
         7,
         10,
-
         0,
         0,
         Math.PI*2
     );
 
-
     ctx.strokeStyle =
         "rgba(120,230,255,.7)";
 
-
     ctx.stroke();
+
 }
 
 
@@ -3112,51 +3052,40 @@ function drawInletTube(){
 
 function drawIce(){
 
-    /*
-       Ice is visible at 300 K and below.
-       It gradually becomes stronger toward
-       lower temperatures.
-    */
-
     if(
         temperature>300
     ){
-        return;
-    }
 
+        return;
+
+    }
 
     const coldStrength =
         1-
         temperature/300;
 
-
     const bottom =
         chamber.cy+
         chamber.ry;
-
 
     const time =
         performance.now()*.001;
 
 
-    /* =====================================
-       COLD GLOW
-    ===================================== */
+    /* COLD GLOW */
 
     const coldGlow =
         ctx.createRadialGradient(
 
             chamber.cx,
             bottom+28,
-
             5,
 
             chamber.cx,
             bottom+28,
-
             80
-        );
 
+        );
 
     coldGlow.addColorStop(
         0,
@@ -3168,54 +3097,42 @@ function drawIce(){
         )`
     );
 
-
     coldGlow.addColorStop(
         1,
         "rgba(50,150,255,0)"
     );
 
-
     ctx.fillStyle =
         coldGlow;
 
-
     ctx.fillRect(
-
         chamber.cx-100,
         bottom-30,
-
         200,
         100
     );
 
 
-    /* =====================================
-       ICE BASE
-    ===================================== */
+    /* ICE BASE */
 
     const iceWidth =
         70+
         coldStrength*30;
 
-
     const iceHeight =
         22+
         coldStrength*15;
 
-
     ctx.save();
-
 
     ctx.translate(
         chamber.cx,
         bottom+12
     );
 
-
     ctx.globalAlpha =
         .25+
         coldStrength*.55;
-
 
     const iceGradient =
         ctx.createLinearGradient(
@@ -3225,104 +3142,84 @@ function drawIce(){
             iceHeight
         );
 
-
     iceGradient.addColorStop(
         0,
         "#eaffff"
     );
-
 
     iceGradient.addColorStop(
         .4,
         "#9eeeff"
     );
 
-
     iceGradient.addColorStop(
         1,
         "#3c9edc"
     );
 
-
     ctx.fillStyle =
         iceGradient;
-
 
     ctx.strokeStyle =
         "rgba(180,245,255,.85)";
 
-
     ctx.lineWidth=1.5;
 
-
     ctx.beginPath();
-
 
     ctx.moveTo(
         -iceWidth,
         iceHeight*.45
     );
 
-
     ctx.lineTo(
         -iceWidth*.75,
         -iceHeight*.35
     );
-
 
     ctx.lineTo(
         -iceWidth*.48,
         -iceHeight*.72
     );
 
-
     ctx.lineTo(
         -iceWidth*.18,
         -iceHeight*.32
     );
-
 
     ctx.lineTo(
         iceWidth*.10,
         -iceHeight*.75
     );
 
-
     ctx.lineTo(
         iceWidth*.34,
         -iceHeight*.30
     );
-
 
     ctx.lineTo(
         iceWidth*.65,
         -iceHeight*.62
     );
 
-
     ctx.lineTo(
         iceWidth,
         iceHeight*.40
     );
 
-
     ctx.closePath();
 
-
     ctx.fill();
+
     ctx.stroke();
 
 
-    /* =====================================
-       ICE CRACKS
-    ===================================== */
+    /* ICE CRACKS */
 
     ctx.strokeStyle =
         "rgba(235,255,255,.7)";
 
-
     ctx.lineWidth=1;
-
 
     for(
         let i=0;
@@ -3334,35 +3231,29 @@ function drawIce(){
             -iceWidth*.65+
             i*iceWidth*.4;
 
-
         ctx.beginPath();
-
 
         ctx.moveTo(
             x,
             -iceHeight*.2
         );
 
-
         ctx.lineTo(
             x+random(-8,8),
             iceHeight*.15
         );
-
 
         ctx.lineTo(
             x+random(-10,10),
             iceHeight*.35
         );
 
-
         ctx.stroke();
+
     }
 
 
-    /* =====================================
-       LITTLE SNOW SPARKLES
-    ===================================== */
+    /* LITTLE SNOW SPARKLES */
 
     for(
         let i=0;
@@ -3377,7 +3268,6 @@ function drawIce(){
             )+
             i;
 
-
         const sx =
             Math.cos(angle)*
             (
@@ -3385,15 +3275,12 @@ function drawIce(){
                 i*5
             );
 
-
         const sy =
             -20+
             Math.sin(angle*1.7)*
             12;
 
-
         ctx.beginPath();
-
 
         ctx.arc(
             sx,
@@ -3403,16 +3290,15 @@ function drawIce(){
             Math.PI*2
         );
 
-
         ctx.fillStyle =
             "rgba(210,250,255,.8)";
 
-
         ctx.fill();
+
     }
 
-
     ctx.restore();
+
 }
 
 
@@ -3426,16 +3312,11 @@ function drawBurner(){
         chamber.cy+
         chamber.ry;
 
-
     const burnerY =
         bottom+37;
 
 
-    /*
-       IMPORTANT:
-       No flame at 300 K or below.
-       Ice replaces the heat source visually.
-    */
+    /* NO FLAME AT 300 K OR BELOW */
 
     if(
         temperature<=300
@@ -3444,48 +3325,34 @@ function drawBurner(){
         drawIce();
 
 
-        /*
-           Keep a very subtle cold support
-           beneath the chamber.
-        */
-
         ctx.fillStyle =
             "rgba(40,110,150,.16)";
 
-
         ctx.beginPath();
 
-
         ctx.ellipse(
-
             chamber.cx,
             burnerY+10,
-
             50,
             8,
-
             0,
             0,
             Math.PI*2
         );
 
-
         ctx.fill();
 
-
         return;
+
     }
 
 
-    /* =====================================
-       HEAT GLOW
-    ===================================== */
+    /* HEAT GLOW */
 
     const intensity =
         (
             temperature-300
         )/300;
-
 
     const flicker =
         Math.sin(
@@ -3496,32 +3363,26 @@ function drawBurner(){
             performance.now()*.021
         )*.08;
 
-
     const glowSize =
         75+
         intensity*35+
         flicker*20;
-
 
     const glow =
         ctx.createRadialGradient(
 
             chamber.cx,
             burnerY-10,
-
             2,
 
             chamber.cx,
             burnerY-10,
-
             glowSize
+
         );
 
-
     glow.addColorStop(
-
         0,
-
         `rgba(
             255,
             140,
@@ -3530,11 +3391,8 @@ function drawBurner(){
         )`
     );
 
-
     glow.addColorStop(
-
         .45,
-
         `rgba(
             255,
             100,
@@ -3543,117 +3401,86 @@ function drawBurner(){
         )`
     );
 
-
     glow.addColorStop(
-
         1,
-
         "rgba(255,70,20,0)"
     );
-
 
     ctx.fillStyle =
         glow;
 
-
     ctx.fillRect(
-
         chamber.cx-130,
         burnerY-110,
-
         260,
         130
     );
 
 
-    /* =====================================
-       BURNER BODY
-    ===================================== */
+    /* BURNER BODY */
 
     ctx.fillStyle =
         "rgba(18,31,43,.95)";
 
-
     ctx.strokeStyle =
         "rgba(90,160,190,.55)";
 
-
     ctx.lineWidth=2;
-
 
     ctx.beginPath();
 
-
     ctx.roundRect(
-
         chamber.cx-55,
         burnerY+4,
-
         110,
         22,
-
         7
     );
 
-
     ctx.fill();
+
     ctx.stroke();
 
 
-    /* =====================================
-       BURNER TOP
-    ===================================== */
+    /* BURNER TOP */
 
     ctx.beginPath();
 
-
     ctx.ellipse(
-
         chamber.cx,
         burnerY+4,
-
         42,
         9,
-
         0,
         0,
         Math.PI*2
     );
 
-
     ctx.fillStyle =
         "#152b3b";
 
-
     ctx.fill();
-
 
     ctx.strokeStyle =
         "rgba(100,190,220,.6)";
 
-
     ctx.stroke();
 
 
-    /* =====================================
-       FLAME
-    ===================================== */
+    /* FLAME */
 
     const baseHeight =
         20+
         intensity*48;
 
-
     const flameHeight =
         baseHeight+
         flicker*5;
-
 
     const flameWidth =
         12+
         intensity*14+
         flicker*2;
-
 
     const sway =
         flicker*
@@ -3673,41 +3500,35 @@ function drawBurner(){
 
             0,
             burnerY
-        );
 
+        );
 
     flameGradient.addColorStop(
         0,
         "#fffbd0"
     );
 
-
     flameGradient.addColorStop(
         .30,
         "#fff17a"
     );
-
 
     flameGradient.addColorStop(
         .60,
         "#ffc83d"
     );
 
-
     flameGradient.addColorStop(
         1,
         "#ff6b20"
     );
 
-
     ctx.beginPath();
-
 
     ctx.moveTo(
         chamber.cx,
         burnerY
     );
-
 
     ctx.bezierCurveTo(
 
@@ -3730,8 +3551,8 @@ function drawBurner(){
 
         burnerY-
         flameHeight
-    );
 
+    );
 
     ctx.bezierCurveTo(
 
@@ -3751,32 +3572,26 @@ function drawBurner(){
 
         chamber.cx,
         burnerY
-    );
 
+    );
 
     ctx.fillStyle =
         flameGradient;
 
-
     ctx.shadowColor =
         "#ff9a30";
-
 
     ctx.shadowBlur =
         14+
         intensity*18+
         Math.abs(flicker)*8;
 
-
     ctx.fill();
-
 
     ctx.shadowBlur=0;
 
 
-    /* =====================================
-       INNER BLUE FLAME
-    ===================================== */
+    /* INNER BLUE FLAME */
 
     const innerHeight =
         flameHeight*
@@ -3785,14 +3600,11 @@ function drawBurner(){
             flicker*.025
         );
 
-
     const innerWidth =
         flameWidth*.45;
 
-
     const innerSway =
         sway*.45;
-
 
     const innerGradient =
         ctx.createLinearGradient(
@@ -3802,35 +3614,30 @@ function drawBurner(){
 
             0,
             burnerY
-        );
 
+        );
 
     innerGradient.addColorStop(
         0,
         "#dfffff"
     );
 
-
     innerGradient.addColorStop(
         .45,
         "#63e5ff"
     );
-
 
     innerGradient.addColorStop(
         1,
         "#2498ff"
     );
 
-
     ctx.beginPath();
-
 
     ctx.moveTo(
         chamber.cx,
         burnerY
     );
-
 
     ctx.bezierCurveTo(
 
@@ -3853,8 +3660,8 @@ function drawBurner(){
 
         burnerY-
         innerHeight
-    );
 
+    );
 
     ctx.bezierCurveTo(
 
@@ -3874,38 +3681,30 @@ function drawBurner(){
 
         chamber.cx,
         burnerY
-    );
 
+    );
 
     ctx.fillStyle =
         innerGradient;
 
-
     ctx.shadowColor =
         "#55ddff";
-
 
     ctx.shadowBlur =
         10+
         Math.abs(flicker)*5;
 
-
     ctx.fill();
-
 
     ctx.shadowBlur=0;
 
 
-    /* =====================================
-       HOT CORE
-    ===================================== */
+    /* HOT CORE */
 
     const coreHeight =
         innerHeight*.48;
 
-
     ctx.beginPath();
-
 
     ctx.moveTo(
 
@@ -3913,8 +3712,8 @@ function drawBurner(){
         innerSway*.35,
 
         burnerY
-    );
 
+    );
 
     ctx.bezierCurveTo(
 
@@ -3935,8 +3734,8 @@ function drawBurner(){
 
         burnerY-
         coreHeight
-    );
 
+    );
 
     ctx.bezierCurveTo(
 
@@ -3956,14 +3755,14 @@ function drawBurner(){
         innerSway*.35,
 
         burnerY
-    );
 
+    );
 
     ctx.fillStyle =
         "rgba(255,255,220,.90)";
 
-
     ctx.fill();
+
 }
 
 
@@ -3976,14 +3775,11 @@ function drawLabBackground(){
     const shelfX =
         canvasWidth-170;
 
-
     const shelfY =
         canvasHeight-130;
 
-
     ctx.strokeStyle =
         "rgba(90,150,180,.13)";
-
 
     ctx.lineWidth=2;
 
@@ -3996,24 +3792,20 @@ function drawLabBackground(){
 
         ctx.beginPath();
 
-
         ctx.moveTo(
-
             shelfX,
             shelfY+
             i*32
         );
 
-
         ctx.lineTo(
-
             shelfX+125,
             shelfY+
             i*32
         );
 
-
         ctx.stroke();
+
     }
 
 
@@ -4028,38 +3820,31 @@ function drawLabBackground(){
             8+
             i*24;
 
-
         const by =
             shelfY-12;
-
 
         ctx.fillStyle =
             "rgba(70,150,190,.16)";
 
-
         ctx.fillRect(
-
             bx,
             by,
-
             12,
             12
         );
-
 
         ctx.strokeStyle =
             "rgba(100,190,220,.22)";
 
-
         ctx.strokeRect(
-
             bx,
             by,
-
             12,
             12
         );
+
     }
+
 }
 
 
@@ -4076,10 +3861,8 @@ function animationLoop(now){
     let dt =
         (now-lastTime)/1000;
 
-
     lastTime =
         now;
-
 
     dt =
         Math.min(
@@ -4094,10 +3877,8 @@ function animationLoop(now){
     /* Clear */
 
     ctx.clearRect(
-
         0,
         0,
-
         canvasWidth,
         canvasHeight
     );
@@ -4142,38 +3923,28 @@ function animationLoop(now){
     );
 
 
-    /* =====================================
-       FRONT GLASS EDGE
-    ===================================== */
+    /* FRONT GLASS EDGE */
 
     const bottom =
         chamber.cy+
         chamber.ry;
 
-
     ctx.strokeStyle =
         "rgba(150,235,255,.23)";
 
-
     ctx.lineWidth=1;
-
 
     ctx.beginPath();
 
-
     ctx.ellipse(
-
         chamber.cx,
         bottom,
-
         chamber.rx,
         chamber.rx*.27,
-
         0,
         0,
         Math.PI
     );
-
 
     ctx.stroke();
 
@@ -4181,6 +3952,7 @@ function animationLoop(now){
     requestAnimationFrame(
         animationLoop
     );
+
 }
 
 
@@ -4202,4 +3974,3 @@ requestAnimationFrame(
 
 </body>
 </html>
-```
