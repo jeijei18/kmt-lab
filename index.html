@@ -1,0 +1,4205 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KMT Interactive Lab</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    background:#06101d;
+    color:#eef8ff;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    z-index:20;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(20,100,160,.20),
+            transparent 38%
+        ),
+        linear-gradient(
+            135deg,
+            #030a13,
+            #071827 55%,
+            #03101c
+        );
+}
+
+.intro-content{
+    text-align:center;
+    position:relative;
+    z-index:2;
+    padding:30px;
+}
+
+.intro-kicker{
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:5px;
+    color:#70d9ff;
+    margin-bottom:18px;
+    text-transform:uppercase;
+}
+
+.intro-title{
+    font-size:clamp(48px,7vw,90px);
+    font-weight:900;
+    letter-spacing:1px;
+    line-height:1;
+    color:#fff;
+
+    text-shadow:
+        0 0 15px rgba(80,200,255,.25),
+        0 0 45px rgba(40,160,255,.15);
+}
+
+.intro-subtitle{
+    margin-top:20px;
+    font-size:clamp(20px,2.5vw,32px);
+    font-weight:900;
+    letter-spacing:2px;
+    color:#9ee8ff;
+}
+
+.intro-developer{
+    margin-top:15px;
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:#b8cddd;
+}
+
+
+/* =========================================================
+   ENTER BUTTON
+========================================================= */
+
+.enter-btn{
+    margin-top:42px;
+
+    padding:16px 38px;
+
+    border:none;
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #36c9ff,
+            #197cff
+        );
+
+    color:white;
+
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 20px rgba(45,180,255,.35),
+        inset 0 1px rgba(255,255,255,.3);
+
+    transition:.25s ease;
+}
+
+.enter-btn:hover{
+    transform:translateY(-3px) scale(1.03);
+
+    box-shadow:
+        0 0 30px rgba(45,190,255,.55),
+        inset 0 1px rgba(255,255,255,.4);
+}
+
+.enter-btn:active{
+    transform:scale(.97);
+}
+
+
+/* =========================================================
+   CIRCULAR TRANSITION
+========================================================= */
+
+#circleTransition{
+    position:fixed;
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    background:#071827;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(0);
+
+    z-index:30;
+
+    pointer-events:none;
+}
+
+#circleTransition.expand{
+    animation:
+        circleExpand
+        1s cubic-bezier(.7,0,.2,1)
+        forwards;
+}
+
+@keyframes circleExpand{
+    0%{
+        transform:
+            translate(-50%,-50%)
+            scale(0);
+    }
+
+    100%{
+        transform:
+            translate(-50%,-50%)
+            scale(150);
+    }
+}
+
+
+/* =========================================================
+   LAB
+========================================================= */
+
+#lab{
+    position:relative;
+    z-index:1;
+
+    width:100%;
+    height:100%;
+
+    display:none;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(23,104,155,.13),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #061321,
+            #071b2b 50%,
+            #040d17
+        );
+}
+
+#lab::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    opacity:.12;
+
+    background-image:
+        linear-gradient(
+            rgba(120,190,220,.15) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(120,190,220,.15) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.lab-header{
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:68px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:5;
+
+    background:rgba(3,12,22,.62);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:
+        1px solid
+        rgba(110,200,255,.13);
+}
+
+.lab-title{
+    font-size:25px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+
+    color:#eafaff;
+
+    text-shadow:
+        0 0 18px
+        rgba(50,190,255,.25);
+}
+
+
+/* =========================================================
+   GAS PARTICLES PANEL
+========================================================= */
+
+.control-panel{
+    position:absolute;
+
+    left:24px;
+    top:92px;
+
+    width:235px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:
+        rgba(7,24,39,.72);
+
+    border:
+        1px solid
+        rgba(100,190,235,.16);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
+
+    backdrop-filter:blur(14px);
+
+    z-index:5;
+}
+
+.panel-label{
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    color:#83dfff;
+
+    margin-bottom:13px;
+}
+
+.particle-count{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+.count-btn{
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    border:
+        1px solid
+        rgba(130,220,255,.22);
+
+    background:
+        rgba(20,70,100,.5);
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.count-btn:hover{
+    background:
+        rgba(30,120,165,.7);
+
+    transform:scale(1.04);
+}
+
+.count-btn:active{
+    transform:scale(.94);
+}
+
+.count-number{
+    min-width:70px;
+
+    text-align:center;
+
+    font-size:28px;
+
+    font-weight:900;
+
+    color:#eafcff;
+}
+
+
+/* =========================================================
+   TEMPERATURE PANEL
+========================================================= */
+
+.temp-panel{
+    position:absolute;
+
+    right:24px;
+    top:92px;
+
+    width:190px;
+
+    min-height:430px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    background:
+        rgba(7,24,39,.72);
+
+    border:
+        1px solid
+        rgba(100,190,235,.16);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
+
+    backdrop-filter:blur(14px);
+
+    z-index:5;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+.temp-top{
+    width:100%;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+}
+
+.temp-value{
+    font-size:28px;
+
+    font-weight:900;
+
+    transition:
+        color .25s ease;
+}
+
+.temp-unit{
+    font-size:14px;
+
+    color:#a8c3d3;
+
+    margin-left:3px;
+}
+
+
+/* =========================================================
+   VERTICAL SLIDER
+========================================================= */
+
+.slider-area{
+    position:relative;
+
+    width:100%;
+    height:315px;
+
+    margin-top:15px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+
+/*
+   IMPORTANT:
+   The actual slider is positioned at the exact
+   horizontal center of the slider area.
+   Since the range is 0–600, 300 K is exactly
+   the physical midpoint.
+*/
+
+.temp-slider{
+    appearance:none;
+    -webkit-appearance:none;
+
+    writing-mode:vertical-lr;
+    direction:rtl;
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    width:18px;
+    height:270px;
+
+    margin:0;
+
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            to top,
+
+            #287cff 0%,
+            #55cfff 18%,
+            #9bd43a 50%,
+            #ffd34a 66%,
+            #ff8a2d 83%,
+            #e63838 100%
+        );
+
+    box-shadow:
+        0 0 14px
+        rgba(70,170,255,.22),
+
+        inset 0 2px 4px
+        rgba(0,0,0,.45);
+}
+
+
+/* =========================================================
+   SLIDER THUMB
+========================================================= */
+
+.temp-slider::-webkit-slider-thumb{
+    appearance:none;
+    -webkit-appearance:none;
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    border:
+        4px solid
+        #eafaff;
+
+    background:#287cff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0,0,0,.18),
+
+        0 0 20px
+        rgba(70,190,255,.75);
+
+    transition:.2s;
+}
+
+.temp-slider::-webkit-slider-thumb:hover{
+    transform:scale(1.12);
+}
+
+.temp-slider::-moz-range-thumb{
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    border:
+        4px solid
+        #eafaff;
+
+    background:#287cff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0,0,0,.18),
+
+        0 0 20px
+        rgba(70,190,255,.75);
+}
+
+
+/* =========================================================
+   CENTER VALUE
+========================================================= */
+
+.slider-center-value{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    min-width:82px;
+
+    padding:7px 10px;
+
+    text-align:center;
+
+    border-radius:10px;
+
+    background:
+        rgba(3,15,27,.82);
+
+    border:
+        1px solid
+        rgba(110,210,255,.18);
+
+    color:#ffffff;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    pointer-events:none;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.18);
+
+    z-index:3;
+}
+
+
+/* =========================================================
+   SCALE
+========================================================= */
+
+.temp-scale{
+    position:absolute;
+
+    right:15px;
+
+    top:22px;
+
+    height:270px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    color:#b9d4e3;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    pointer-events:none;
+}
+
+.temp-scale span{
+    min-width:25px;
+
+    text-align:left;
+}
+
+
+/* =========================================================
+   SIMULATION CARD
+========================================================= */
+
+.sim-card{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-45%);
+
+    width:
+        min(800px,58vw);
+
+    height:
+        min(630px,70vh);
+
+    min-width:500px;
+    min-height:430px;
+
+    border-radius:28px;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(20,120,180,.08),
+            transparent 45%
+        ),
+
+        rgba(3,15,27,.42);
+
+    border:
+        1px solid
+        rgba(90,190,235,.12);
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.32),
+
+        inset 0 0 60px
+        rgba(40,130,180,.035);
+
+    overflow:hidden;
+}
+
+#simulationCanvas{
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+}
+
+.temp-status{
+    position:absolute;
+
+    right:235px;
+    bottom:28px;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    z-index:5;
+
+    transition:
+        color .25s;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+
+    .control-panel{
+        left:12px;
+        width:205px;
+    }
+
+    .temp-panel{
+        right:12px;
+        width:175px;
+    }
+
+    .sim-card{
+        width:min(700px,56vw);
+    }
+
+    .temp-status{
+        right:205px;
+    }
+}
+
+@media(max-width:800px){
+
+    .control-panel{
+        top:82px;
+        left:10px;
+        width:180px;
+        padding:14px;
+    }
+
+    .temp-panel{
+        top:82px;
+        right:10px;
+        width:155px;
+        padding:16px;
+    }
+
+    .sim-card{
+        width:70vw;
+        min-width:400px;
+        height:60vh;
+    }
+
+    .lab-title{
+        font-size:21px;
+    }
+
+    .temp-status{
+        right:180px;
+    }
+}
+
+@media(max-width:600px){
+
+    .control-panel,
+    .temp-panel{
+        transform:scale(.82);
+        transform-origin:top left;
+    }
+
+    .temp-panel{
+        transform-origin:top right;
+    }
+
+    .sim-card{
+        width:88vw;
+
+        min-width:0;
+
+        height:58vh;
+
+        min-height:350px;
+
+        transform:
+            translate(-50%,-35%);
+    }
+
+    .intro-title{
+        font-size:46px;
+    }
+
+    .temp-status{
+        right:160px;
+        bottom:18px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     INTRO SCREEN
+========================================================= -->
+
+<section id="intro">
+
+    <div class="intro-content">
+
+        <div class="intro-kicker">
+            KINETIC MOLECULAR THEORY
+        </div>
+
+        <h1 class="intro-title">
+            Particles in Motion
+        </h1>
+
+        <div class="intro-subtitle">
+            The KMT Interactive Lab
+        </div>
+
+        <div class="intro-developer">
+            Developed by BSEd Science 4A
+        </div>
+
+        <button
+            class="enter-btn"
+            onclick="enterLab()"
+        >
+            ENTER LAB
+        </button>
+
+    </div>
+
+</section>
+
+
+<div id="circleTransition"></div>
+
+
+<!-- =========================================================
+     LAB
+========================================================= -->
+
+<section id="lab">
+
+
+    <!-- HEADER -->
+
+    <header class="lab-header">
+
+        <div class="lab-title">
+            KMT LAB
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         GAS PARTICLES
+    ====================================================== -->
+
+    <div class="control-panel">
+
+        <div class="panel-label">
+            GAS PARTICLES
+        </div>
+
+        <div class="particle-count">
+
+            <button
+                class="count-btn"
+                onclick="removeParticle()"
+            >
+                −
+            </button>
+
+            <div
+                class="count-number"
+                id="particleCount"
+            >
+                0
+            </div>
+
+            <button
+                class="count-btn"
+                onclick="addParticle()"
+            >
+                +
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TEMPERATURE
+    ====================================================== -->
+
+    <div class="temp-panel">
+
+        <div class="temp-top">
+
+            <div
+                class="panel-label"
+                style="margin:0;"
+            >
+                TEMPERATURE
+            </div>
+
+            <div
+                class="temp-value"
+                id="temperatureValue"
+            >
+                300<span class="temp-unit">K</span>
+            </div>
+
+        </div>
+
+
+        <div class="slider-area">
+
+            <input
+                id="temperatureSlider"
+                class="temp-slider"
+                type="range"
+                min="0"
+                max="600"
+                step="1"
+                value="300"
+            >
+
+
+            <div
+                class="slider-center-value"
+                id="sliderCenterValue"
+            >
+                300 K
+            </div>
+
+
+            <div class="temp-scale">
+
+                <span>600</span>
+                <span>500</span>
+                <span>400</span>
+                <span>300</span>
+                <span>200</span>
+                <span>100</span>
+                <span>50</span>
+                <span>0</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SIMULATION CHAMBER
+    ====================================================== -->
+
+    <div class="sim-card">
+
+        <canvas
+            id="simulationCanvas"
+        ></canvas>
+
+    </div>
+
+
+    <div
+        class="temp-status"
+        id="tempStatus"
+    >
+        MODERATE
+    </div>
+
+
+</section>
+
+
+
+<script>
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+let audioContext = null;
+
+
+/* =========================================================
+   INITIALIZE AUDIO
+========================================================= */
+
+function initializeAudio(){
+
+    if(!audioContext){
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if(AudioContext){
+
+            audioContext =
+                new AudioContext();
+        }
+    }
+
+
+    if(
+        audioContext &&
+        audioContext.state==="suspended"
+    ){
+
+        audioContext.resume();
+    }
+}
+
+
+/* =========================================================
+   ENTER LAB SOUND
+========================================================= */
+
+function playEnterSound(){
+
+    initializeAudio();
+
+    if(!audioContext){
+        return;
+    }
+
+
+    const now =
+        audioContext.currentTime;
+
+
+    /* First soft tone */
+
+    const osc1 =
+        audioContext.createOscillator();
+
+
+    const gain1 =
+        audioContext.createGain();
+
+
+    osc1.type =
+        "sine";
+
+
+    osc1.frequency.setValueAtTime(
+        520,
+        now
+    );
+
+
+    osc1.frequency.exponentialRampToValueAtTime(
+        900,
+        now+.18
+    );
+
+
+    gain1.gain.setValueAtTime(
+        .0001,
+        now
+    );
+
+
+    gain1.gain.exponentialRampToValueAtTime(
+        .16,
+        now+.025
+    );
+
+
+    gain1.gain.exponentialRampToValueAtTime(
+        .0001,
+        now+.28
+    );
+
+
+    osc1.connect(gain1);
+    gain1.connect(
+        audioContext.destination
+    );
+
+
+    osc1.start(now);
+    osc1.stop(now+.3);
+
+
+    /* Second magical tone */
+
+    const osc2 =
+        audioContext.createOscillator();
+
+
+    const gain2 =
+        audioContext.createGain();
+
+
+    osc2.type =
+        "sine";
+
+
+    osc2.frequency.setValueAtTime(
+        780,
+        now+.08
+    );
+
+
+    osc2.frequency.exponentialRampToValueAtTime(
+        1250,
+        now+.24
+    );
+
+
+    gain2.gain.setValueAtTime(
+        .0001,
+        now
+    );
+
+
+    gain2.gain.exponentialRampToValueAtTime(
+        .10,
+        now+.10
+    );
+
+
+    gain2.gain.exponentialRampToValueAtTime(
+        .0001,
+        now+.34
+    );
+
+
+    osc2.connect(gain2);
+    gain2.connect(
+        audioContext.destination
+    );
+
+
+    osc2.start(now+.08);
+    osc2.stop(now+.36);
+}
+
+
+/* =========================================================
+   PARTICLE POP SOUND
+========================================================= */
+
+function playParticleSound(
+    type="add"
+){
+
+    initializeAudio();
+
+    if(!audioContext){
+        return;
+    }
+
+
+    const now =
+        audioContext.currentTime;
+
+
+    const osc =
+        audioContext.createOscillator();
+
+
+    const gain =
+        audioContext.createGain();
+
+
+    osc.type =
+        "sine";
+
+
+    if(type==="add"){
+
+        /*
+           Cute upward pop.
+        */
+
+        osc.frequency.setValueAtTime(
+            420,
+            now
+        );
+
+
+        osc.frequency.exponentialRampToValueAtTime(
+            720,
+            now+.09
+        );
+
+
+        gain.gain.setValueAtTime(
+            .0001,
+            now
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .09,
+            now+.012
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            now+.13
+        );
+
+    }else{
+
+        /*
+           Slightly lower disappearing pop.
+        */
+
+        osc.frequency.setValueAtTime(
+            600,
+            now
+        );
+
+
+        osc.frequency.exponentialRampToValueAtTime(
+            300,
+            now+.10
+        );
+
+
+        gain.gain.setValueAtTime(
+            .0001,
+            now
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .065,
+            now+.012
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            now+.14
+        );
+    }
+
+
+    osc.connect(gain);
+
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    osc.start(now);
+
+
+    osc.stop(
+        now+.16
+    );
+}
+
+
+/* =========================================================
+   ENTER LAB
+========================================================= */
+
+function enterLab(){
+
+    playEnterSound();
+
+
+    const intro =
+        document.getElementById(
+            "intro"
+        );
+
+
+    const transition =
+        document.getElementById(
+            "circleTransition"
+        );
+
+
+    const lab =
+        document.getElementById(
+            "lab"
+        );
+
+
+    lab.style.display =
+        "block";
+
+
+    transition.classList.add(
+        "expand"
+    );
+
+
+    setTimeout(
+        ()=>{
+            intro.style.display =
+                "none";
+        },
+        650
+    );
+
+
+    setTimeout(
+        ()=>{
+            transition.style.display =
+                "none";
+        },
+        1100
+    );
+
+
+    resizeCanvas();
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+const canvas =
+    document.getElementById(
+        "simulationCanvas"
+    );
+
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+let canvasWidth=0;
+let canvasHeight=0;
+
+
+function resizeCanvas(){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const dpr =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+
+    canvas.width =
+        rect.width*dpr;
+
+
+    canvas.height =
+        rect.height*dpr;
+
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    canvasWidth =
+        rect.width;
+
+
+    canvasHeight =
+        rect.height;
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =========================================================
+   TEMPERATURE
+========================================================= */
+
+let temperature=300;
+
+
+const temperatureSlider =
+    document.getElementById(
+        "temperatureSlider"
+    );
+
+
+const temperatureValue =
+    document.getElementById(
+        "temperatureValue"
+    );
+
+
+const sliderCenterValue =
+    document.getElementById(
+        "sliderCenterValue"
+    );
+
+
+const tempStatus =
+    document.getElementById(
+        "tempStatus"
+    );
+
+
+/* =========================================================
+   TEMPERATURE SPEED
+========================================================= */
+
+function temperatureSpeedFactor(){
+
+    if(
+        temperature<=0
+    ){
+        return 0;
+    }
+
+
+    let factor =
+        Math.sqrt(
+            temperature/300
+        );
+
+
+    /*
+       Extra visual increase above
+       the 300 K reference.
+    */
+
+    if(
+        temperature>300
+    ){
+
+        const highTemp =
+            (temperature-300)/300;
+
+
+        factor *=
+            1+
+            highTemp*.65;
+    }
+
+
+    return factor;
+}
+
+
+/* =========================================================
+   TEMPERATURE COLOR
+========================================================= */
+
+function getTemperatureColor(T){
+
+    if(T<=50){
+
+        return "#4aaeff";
+    }
+
+
+    if(T<=150){
+
+        const p =
+            (T-50)/100;
+
+
+        return interpolateColor(
+            "#4aaeff",
+            "#72d6e8",
+            p
+        );
+    }
+
+
+    if(T<=300){
+
+        const p =
+            (T-150)/150;
+
+
+        return interpolateColor(
+            "#72d6e8",
+            "#9bd43a",
+            p
+        );
+    }
+
+
+    if(T<=400){
+
+        const p =
+            (T-300)/100;
+
+
+        return interpolateColor(
+            "#9bd43a",
+            "#ffd34a",
+            p
+        );
+    }
+
+
+    if(T<=500){
+
+        const p =
+            (T-400)/100;
+
+
+        return interpolateColor(
+            "#ffd34a",
+            "#ff8a2d",
+            p
+        );
+    }
+
+
+    const p =
+        (T-500)/100;
+
+
+    return interpolateColor(
+        "#ff8a2d",
+        "#e63838",
+        p
+    );
+}
+
+
+/* =========================================================
+   COLOR INTERPOLATION
+========================================================= */
+
+function interpolateColor(
+    a,
+    b,
+    t
+){
+
+    const ah =
+        a.replace("#","");
+
+
+    const bh =
+        b.replace("#","");
+
+
+    const ar =
+        parseInt(
+            ah.substring(0,2),
+            16
+        );
+
+
+    const ag =
+        parseInt(
+            ah.substring(2,4),
+            16
+        );
+
+
+    const ab =
+        parseInt(
+            ah.substring(4,6),
+            16
+        );
+
+
+    const br =
+        parseInt(
+            bh.substring(0,2),
+            16
+        );
+
+
+    const bg =
+        parseInt(
+            bh.substring(2,4),
+            16
+        );
+
+
+    const bb =
+        parseInt(
+            bh.substring(4,6),
+            16
+        );
+
+
+    const r =
+        Math.round(
+            ar+(br-ar)*t
+        );
+
+
+    const g =
+        Math.round(
+            ag+(bg-ag)*t
+        );
+
+
+    const b2 =
+        Math.round(
+            ab+(bb-ab)*t
+        );
+
+
+    return `rgb(${r},${g},${b2})`;
+}
+
+
+/* =========================================================
+   TEMPERATURE UI
+========================================================= */
+
+function updateTemperatureUI(){
+
+    temperatureValue.innerHTML =
+        `${temperature}<span class="temp-unit">K</span>`;
+
+
+    sliderCenterValue.textContent =
+        `${temperature} K`;
+
+
+    const color =
+        getTemperatureColor(
+            temperature
+        );
+
+
+    temperatureValue.style.color =
+        color;
+
+
+    sliderCenterValue.style.color =
+        color;
+
+
+    tempStatus.style.color =
+        color;
+
+
+    /* =====================================
+       STATUS
+    ===================================== */
+
+    if(
+        temperature<=300
+    ){
+
+        tempStatus.textContent =
+            "COLD";
+    }
+
+    else if(
+        temperature<400
+    ){
+
+        tempStatus.textContent =
+            "WARM";
+    }
+
+    else if(
+        temperature<550
+    ){
+
+        tempStatus.textContent =
+            "HOT";
+    }
+
+    else{
+
+        tempStatus.textContent =
+            "VERY HOT";
+    }
+
+
+    /* =====================================
+       THUMB COLOR
+    ===================================== */
+
+    let styleTag =
+        document.getElementById(
+            "dynamicSliderStyle"
+        );
+
+
+    if(!styleTag){
+
+        styleTag =
+            document.createElement(
+                "style"
+            );
+
+        styleTag.id =
+            "dynamicSliderStyle";
+
+        document.head.appendChild(
+            styleTag
+        );
+    }
+
+
+    styleTag.textContent = `
+
+        #temperatureSlider::-webkit-slider-thumb{
+
+            background:${color};
+
+            box-shadow:
+                0 0 0 3px rgba(0,0,0,.18),
+                0 0 22px ${color};
+        }
+
+        #temperatureSlider::-moz-range-thumb{
+
+            background:${color};
+
+            box-shadow:
+                0 0 0 3px rgba(0,0,0,.18),
+                0 0 22px ${color};
+        }
+
+    `;
+}
+
+
+/* =========================================================
+   SLIDER EVENT
+========================================================= */
+
+temperatureSlider.addEventListener(
+    "input",
+    ()=>{
+
+        temperature =
+            Number(
+                temperatureSlider.value
+            );
+
+
+        updateTemperatureUI();
+    }
+);
+
+
+/* =========================================================
+   CHAMBER
+========================================================= */
+
+const chamber={
+
+    cx:0,
+    cy:0,
+    rx:0,
+    ry:0
+};
+
+
+function updateChamber(){
+
+    chamber.cx =
+        canvasWidth*.50;
+
+
+    chamber.cy =
+        canvasHeight*.44;
+
+
+    chamber.rx =
+        Math.min(
+            canvasWidth*.22,
+            175
+        );
+
+
+    chamber.ry =
+        Math.min(
+            canvasHeight*.30,
+            195
+        );
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+const particles=[];
+
+
+const MAX_PARTICLES=30;
+
+
+const PARTICLE_RADIUS=7;
+
+
+function random(
+    min,
+    max
+){
+
+    return Math.random()*
+        (max-min)+min;
+}
+
+
+/* =========================================================
+   PARTICLE CLASS
+========================================================= */
+
+class Particle{
+
+    constructor(){
+
+        this.radius =
+            PARTICLE_RADIUS;
+
+
+        this.mass=1;
+
+
+        this.baseSpeed =
+            random(
+                95,
+                125
+            );
+
+
+        this.speedVariation =
+            random(
+                .92,
+                1.08
+            );
+
+
+        /*
+           Particle enters from side inlet.
+        */
+
+        this.x =
+            chamber.cx-
+            chamber.rx-
+            55;
+
+
+        this.y =
+            chamber.cy+
+            random(
+                -chamber.ry*.65,
+                chamber.ry*.65
+            );
+
+
+        const angle =
+            random(
+                -Math.PI*.45,
+                Math.PI*.45
+            );
+
+
+        this.vx =
+            Math.cos(angle)*100;
+
+
+        this.vy =
+            Math.sin(angle)*100;
+
+
+        this.entering=true;
+
+        this.active=false;
+
+
+        this.entryTargetX =
+            chamber.cx-
+            chamber.rx+
+            this.radius+
+            3;
+
+
+        this.trail=[];
+
+        this.maxTrail=3;
+    }
+
+
+    activateInsideChamber(){
+
+        this.active=true;
+
+        this.entering=false;
+
+
+        this.x =
+            chamber.cx-
+            chamber.rx+
+            this.radius+
+            4;
+
+
+        this.y =
+            chamber.cy+
+            random(
+                -chamber.ry*.7,
+                chamber.ry*.7
+            );
+
+
+        const angle =
+            random(
+                0,
+                Math.PI*2
+            );
+
+
+        const speed =
+            this.getTargetSpeed();
+
+
+        this.vx =
+            Math.cos(angle)*speed;
+
+
+        this.vy =
+            Math.sin(angle)*speed;
+    }
+
+
+    getTargetSpeed(){
+
+        return this.baseSpeed*
+            this.speedVariation*
+            temperatureSpeedFactor();
+    }
+
+
+    update(dt){
+
+        /* =================================
+           ENTERING
+        ================================= */
+
+        if(
+            this.entering
+        ){
+
+            const targetX =
+                this.entryTargetX;
+
+
+            const dx =
+                targetX-this.x;
+
+
+            this.x +=
+                dx*
+                Math.min(
+                    1,
+                    dt*7
+                );
+
+
+            this.y +=
+                this.vy*dt;
+
+
+            if(
+                Math.abs(dx)<3
+            ){
+
+                this.activateInsideChamber();
+            }
+
+
+            return;
+        }
+
+
+        const speedFactor =
+            temperatureSpeedFactor();
+
+
+        /* =================================
+           ZERO K
+        ================================= */
+
+        if(
+            speedFactor===0
+        ){
+
+            const damping =
+                Math.pow(
+                    .93,
+                    dt*60
+                );
+
+
+            this.vx *=
+                damping;
+
+
+            this.vy *=
+                damping;
+
+
+            if(
+                Math.abs(this.vx)<.015
+            ){
+                this.vx=0;
+            }
+
+
+            if(
+                Math.abs(this.vy)<.015
+            ){
+                this.vy=0;
+            }
+        }
+
+
+        /* =================================
+           NONZERO TEMPERATURE
+        ================================= */
+
+        else{
+
+            let currentSpeed =
+                Math.hypot(
+                    this.vx,
+                    this.vy
+                );
+
+
+            if(
+                currentSpeed<.05
+            ){
+
+                const angle =
+                    random(
+                        0,
+                        Math.PI*2
+                    );
+
+
+                this.vx =
+                    Math.cos(angle)*.1;
+
+
+                this.vy =
+                    Math.sin(angle)*.1;
+
+
+                currentSpeed=.1;
+            }
+
+
+            const targetSpeed =
+                this.getTargetSpeed();
+
+
+            const blend =
+                1-
+                Math.pow(
+                    .018,
+                    dt
+                );
+
+
+            const scale =
+                1+
+                (
+                    targetSpeed/
+                    currentSpeed-
+                    1
+                )*
+                blend;
+
+
+            this.vx *=
+                scale;
+
+
+            this.vy *=
+                scale;
+        }
+
+
+        /* =================================
+           MOVEMENT
+        ================================= */
+
+        this.x +=
+            this.vx*dt;
+
+
+        this.y +=
+            this.vy*dt;
+
+
+        this.keepInsideChamber();
+
+
+        /* =================================
+           TRAIL
+        ================================= */
+
+        this.trail.push({
+
+            x:this.x,
+            y:this.y
+
+        });
+
+
+        if(
+            this.trail.length>
+            this.maxTrail
+        ){
+
+            this.trail.shift();
+        }
+    }
+
+
+    keepInsideChamber(){
+
+        const left =
+            chamber.cx-
+            chamber.rx+
+            this.radius+
+            4;
+
+
+        const right =
+            chamber.cx+
+            chamber.rx-
+            this.radius-
+            4;
+
+
+        const top =
+            chamber.cy-
+            chamber.ry+
+            this.radius+
+            5;
+
+
+        const bottom =
+            chamber.cy+
+            chamber.ry-
+            this.radius-
+            5;
+
+
+        if(
+            this.x<left
+        ){
+
+            this.x=left;
+
+            this.vx=
+                Math.abs(
+                    this.vx
+                );
+        }
+
+
+        if(
+            this.x>right
+        ){
+
+            this.x=right;
+
+            this.vx=
+                -Math.abs(
+                    this.vx
+                );
+        }
+
+
+        if(
+            this.y<top
+        ){
+
+            this.y=top;
+
+            this.vy=
+                Math.abs(
+                    this.vy
+                );
+        }
+
+
+        if(
+            this.y>bottom
+        ){
+
+            this.y=bottom;
+
+            this.vy=
+                -Math.abs(
+                    this.vy
+                );
+        }
+    }
+
+
+    draw(){
+
+        if(
+            !this.active
+        ){
+            return;
+        }
+
+
+        /* =================================
+           TRAIL
+        ================================= */
+
+        for(
+            let i=0;
+            i<this.trail.length;
+            i++
+        ){
+
+            const p =
+                this.trail[i];
+
+
+            const alpha =
+                (i+1)/
+                this.trail.length*
+                .10;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                p.x,
+                p.y,
+                this.radius*.55,
+                0,
+                Math.PI*2
+            );
+
+
+            ctx.fillStyle =
+                `rgba(
+                    60,
+                    210,
+                    255,
+                    ${alpha}
+                )`;
+
+
+            ctx.fill();
+        }
+
+
+        /* =================================
+           PARTICLE
+        ================================= */
+
+        const gradient =
+            ctx.createRadialGradient(
+
+                this.x-
+                this.radius*.3,
+
+                this.y-
+                this.radius*.35,
+
+                1,
+
+                this.x,
+                this.y,
+
+                this.radius*1.5
+            );
+
+
+        gradient.addColorStop(
+            0,
+            "#ffffff"
+        );
+
+
+        gradient.addColorStop(
+            .25,
+            "#b8f4ff"
+        );
+
+
+        gradient.addColorStop(
+            .65,
+            "#27cfff"
+        );
+
+
+        gradient.addColorStop(
+            1,
+            "#087bd4"
+        );
+
+
+        ctx.shadowColor =
+            "#27cfff";
+
+
+        ctx.shadowBlur=12;
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.radius,
+            0,
+            Math.PI*2
+        );
+
+
+        ctx.fillStyle =
+            gradient;
+
+
+        ctx.fill();
+
+
+        ctx.shadowBlur=0;
+    }
+}
+
+
+/* =========================================================
+   ADD PARTICLE
+========================================================= */
+
+function addParticle(){
+
+    if(
+        particles.length>=
+        MAX_PARTICLES
+    ){
+        return;
+    }
+
+
+    initializeAudio();
+
+
+    const p =
+        new Particle();
+
+
+    particles.push(p);
+
+
+    updateParticleCount();
+
+
+    /*
+       Sound happens once for every
+       successful particle addition.
+    */
+
+    playParticleSound("add");
+}
+
+
+/* =========================================================
+   REMOVE PARTICLE
+========================================================= */
+
+function removeParticle(){
+
+    if(
+        particles.length===0
+    ){
+        return;
+    }
+
+
+    particles.pop();
+
+
+    updateParticleCount();
+
+
+    playParticleSound("remove");
+}
+
+
+/* =========================================================
+   COUNT
+========================================================= */
+
+function updateParticleCount(){
+
+    document.getElementById(
+        "particleCount"
+    ).textContent =
+        particles.length;
+}
+
+
+/* =========================================================
+   ELASTIC PARTICLE COLLISIONS
+========================================================= */
+
+function handleParticleCollisions(){
+
+    for(
+        let i=0;
+        i<particles.length;
+        i++
+    ){
+
+        const a =
+            particles[i];
+
+
+        if(
+            !a.active
+        ){
+            continue;
+        }
+
+
+        for(
+            let j=i+1;
+            j<particles.length;
+            j++
+        ){
+
+            const b =
+                particles[j];
+
+
+            if(
+                !b.active
+            ){
+                continue;
+            }
+
+
+            let dx =
+                b.x-a.x;
+
+
+            let dy =
+                b.y-a.y;
+
+
+            let distance =
+                Math.hypot(
+                    dx,
+                    dy
+                );
+
+
+            const minDistance =
+                a.radius+
+                b.radius;
+
+
+            if(
+                distance===0
+            ){
+
+                dx=
+                    random(-1,1);
+
+
+                dy=
+                    random(-1,1);
+
+
+                distance =
+                    Math.hypot(
+                        dx,
+                        dy
+                    );
+            }
+
+
+            if(
+                distance<
+                minDistance
+            ){
+
+                const nx =
+                    dx/distance;
+
+
+                const ny =
+                    dy/distance;
+
+
+                /* =================================
+                   SEPARATION
+                ================================= */
+
+                const overlap =
+                    minDistance-
+                    distance;
+
+
+                a.x -=
+                    nx*
+                    overlap*.5;
+
+
+                a.y -=
+                    ny*
+                    overlap*.5;
+
+
+                b.x +=
+                    nx*
+                    overlap*.5;
+
+
+                b.y +=
+                    ny*
+                    overlap*.5;
+
+
+                /* =================================
+                   RELATIVE VELOCITY
+                ================================= */
+
+                const rvx =
+                    b.vx-a.vx;
+
+
+                const rvy =
+                    b.vy-a.vy;
+
+
+                const velocityAlongNormal =
+                    rvx*nx+
+                    rvy*ny;
+
+
+                /*
+                   Equal-mass elastic collision.
+
+                   No energy is intentionally lost.
+                */
+
+                if(
+                    velocityAlongNormal<0
+                ){
+
+                    const impulse =
+                        -velocityAlongNormal;
+
+
+                    a.vx -=
+                        impulse*nx;
+
+
+                    a.vy -=
+                        impulse*ny;
+
+
+                    b.vx +=
+                        impulse*nx;
+
+
+                    b.vy +=
+                        impulse*ny;
+                }
+            }
+        }
+    }
+}
+
+
+/* =========================================================
+   CHAMBER
+========================================================= */
+
+function drawChamber(){
+
+    const left =
+        chamber.cx-
+        chamber.rx;
+
+
+    const right =
+        chamber.cx+
+        chamber.rx;
+
+
+    const top =
+        chamber.cy-
+        chamber.ry;
+
+
+    const bottom =
+        chamber.cy+
+        chamber.ry;
+
+
+    /* =====================================
+       OUTER GLOW
+    ===================================== */
+
+    const glow =
+        ctx.createRadialGradient(
+
+            chamber.cx,
+            chamber.cy,
+
+            chamber.rx*.25,
+
+            chamber.cx,
+            chamber.cy,
+
+            chamber.rx*1.7
+        );
+
+
+    glow.addColorStop(
+        0,
+        "rgba(30,160,230,.08)"
+    );
+
+
+    glow.addColorStop(
+        1,
+        "rgba(30,120,190,0)"
+    );
+
+
+    ctx.fillStyle =
+        glow;
+
+
+    ctx.fillRect(
+
+        left-100,
+        top-100,
+
+        chamber.rx*2+200,
+        chamber.ry*2+200
+    );
+
+
+    /* =====================================
+       GLASS BODY
+    ===================================== */
+
+    const bodyGradient =
+        ctx.createLinearGradient(
+            left,
+            0,
+            right,
+            0
+        );
+
+
+    bodyGradient.addColorStop(
+        0,
+        "rgba(40,140,190,.10)"
+    );
+
+
+    bodyGradient.addColorStop(
+        .15,
+        "rgba(80,190,230,.035)"
+    );
+
+
+    bodyGradient.addColorStop(
+        .5,
+        "rgba(80,210,255,.025)"
+    );
+
+
+    bodyGradient.addColorStop(
+        .85,
+        "rgba(80,190,230,.035)"
+    );
+
+
+    bodyGradient.addColorStop(
+        1,
+        "rgba(40,140,190,.10)"
+    );
+
+
+    ctx.fillStyle =
+        bodyGradient;
+
+
+    ctx.fillRect(
+
+        left,
+        top,
+
+        chamber.rx*2,
+        chamber.ry*2
+    );
+
+
+    /* =====================================
+       SIDES
+    ===================================== */
+
+    ctx.shadowColor =
+        "rgba(50,190,255,.75)";
+
+
+    ctx.shadowBlur=13;
+
+
+    ctx.strokeStyle =
+        "rgba(76,207,255,.75)";
+
+
+    ctx.lineWidth=2;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        left,
+        top
+    );
+
+
+    ctx.lineTo(
+        left,
+        bottom
+    );
+
+
+    ctx.moveTo(
+        right,
+        top
+    );
+
+
+    ctx.lineTo(
+        right,
+        bottom
+    );
+
+
+    ctx.stroke();
+
+
+    ctx.shadowBlur=0;
+
+
+    /* =====================================
+       TOP
+    ===================================== */
+
+    ctx.beginPath();
+
+
+    ctx.ellipse(
+
+        chamber.cx,
+        top,
+
+        chamber.rx,
+        chamber.rx*.27,
+
+        0,
+        0,
+        Math.PI*2
+    );
+
+
+    ctx.fillStyle =
+        "rgba(70,190,235,.07)";
+
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "rgba(92,218,255,.75)";
+
+
+    ctx.lineWidth=2;
+
+
+    ctx.stroke();
+
+
+    /* =====================================
+       BOTTOM
+    ===================================== */
+
+    ctx.beginPath();
+
+
+    ctx.ellipse(
+
+        chamber.cx,
+        bottom,
+
+        chamber.rx,
+        chamber.rx*.27,
+
+        0,
+        0,
+        Math.PI*2
+    );
+
+
+    ctx.strokeStyle =
+        "rgba(74,205,255,.62)";
+
+
+    ctx.stroke();
+
+
+    /* =====================================
+       GLASS HIGHLIGHT
+    ===================================== */
+
+    const highlight =
+        ctx.createLinearGradient(
+            left,
+            0,
+            right,
+            0
+        );
+
+
+    highlight.addColorStop(
+        0,
+        "rgba(255,255,255,.28)"
+    );
+
+
+    highlight.addColorStop(
+        .08,
+        "rgba(255,255,255,.04)"
+    );
+
+
+    highlight.addColorStop(
+        .5,
+        "rgba(255,255,255,0)"
+    );
+
+
+    highlight.addColorStop(
+        .92,
+        "rgba(255,255,255,.04)"
+    );
+
+
+    highlight.addColorStop(
+        1,
+        "rgba(255,255,255,.20)"
+    );
+
+
+    ctx.fillStyle =
+        highlight;
+
+
+    ctx.fillRect(
+
+        left+2,
+        top+5,
+
+        chamber.rx*2-4,
+        chamber.ry*2-10
+    );
+
+
+    /* =====================================
+       REFLECTION
+    ===================================== */
+
+    ctx.strokeStyle =
+        "rgba(190,245,255,.15)";
+
+
+    ctx.lineWidth=5;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        left+20,
+        top+30
+    );
+
+
+    ctx.lineTo(
+        left+20,
+        bottom-30
+    );
+
+
+    ctx.stroke();
+}
+
+
+/* =========================================================
+   INLET TUBE
+========================================================= */
+
+function drawInletTube(){
+
+    const left =
+        chamber.cx-
+        chamber.rx;
+
+
+    const tubeY =
+        chamber.cy;
+
+
+    const tubeStart =
+        left-90;
+
+
+    ctx.shadowColor =
+        "rgba(50,190,255,.5)";
+
+
+    ctx.shadowBlur=12;
+
+
+    ctx.strokeStyle =
+        "rgba(70,190,235,.38)";
+
+
+    ctx.lineWidth=16;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        tubeStart,
+        tubeY
+    );
+
+
+    ctx.lineTo(
+        left+5,
+        tubeY
+    );
+
+
+    ctx.stroke();
+
+
+    ctx.shadowBlur=0;
+
+
+    /* Tube glass lines */
+
+    ctx.strokeStyle =
+        "rgba(100,220,255,.52)";
+
+
+    ctx.lineWidth=2;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        tubeStart,
+        tubeY-9
+    );
+
+
+    ctx.lineTo(
+        left+5,
+        tubeY-9
+    );
+
+
+    ctx.moveTo(
+        tubeStart,
+        tubeY+9
+    );
+
+
+    ctx.lineTo(
+        left+5,
+        tubeY+9
+    );
+
+
+    ctx.stroke();
+
+
+    /* Ring */
+
+    ctx.beginPath();
+
+
+    ctx.ellipse(
+
+        tubeStart,
+        tubeY,
+
+        7,
+        10,
+
+        0,
+        0,
+        Math.PI*2
+    );
+
+
+    ctx.strokeStyle =
+        "rgba(120,230,255,.7)";
+
+
+    ctx.stroke();
+}
+
+
+/* =========================================================
+   COLD VISUAL — ICE
+========================================================= */
+
+function drawIce(){
+
+    /*
+       Ice is visible at 300 K and below.
+       It gradually becomes stronger toward
+       lower temperatures.
+    */
+
+    if(
+        temperature>300
+    ){
+        return;
+    }
+
+
+    const coldStrength =
+        1-
+        temperature/300;
+
+
+    const bottom =
+        chamber.cy+
+        chamber.ry;
+
+
+    const time =
+        performance.now()*.001;
+
+
+    /* =====================================
+       COLD GLOW
+    ===================================== */
+
+    const coldGlow =
+        ctx.createRadialGradient(
+
+            chamber.cx,
+            bottom+28,
+
+            5,
+
+            chamber.cx,
+            bottom+28,
+
+            80
+        );
+
+
+    coldGlow.addColorStop(
+        0,
+        `rgba(
+            80,
+            210,
+            255,
+            ${.10+.14*coldStrength}
+        )`
+    );
+
+
+    coldGlow.addColorStop(
+        1,
+        "rgba(50,150,255,0)"
+    );
+
+
+    ctx.fillStyle =
+        coldGlow;
+
+
+    ctx.fillRect(
+
+        chamber.cx-100,
+        bottom-30,
+
+        200,
+        100
+    );
+
+
+    /* =====================================
+       ICE BASE
+    ===================================== */
+
+    const iceWidth =
+        70+
+        coldStrength*30;
+
+
+    const iceHeight =
+        22+
+        coldStrength*15;
+
+
+    ctx.save();
+
+
+    ctx.translate(
+        chamber.cx,
+        bottom+12
+    );
+
+
+    ctx.globalAlpha =
+        .25+
+        coldStrength*.55;
+
+
+    const iceGradient =
+        ctx.createLinearGradient(
+            0,
+            -iceHeight,
+            0,
+            iceHeight
+        );
+
+
+    iceGradient.addColorStop(
+        0,
+        "#eaffff"
+    );
+
+
+    iceGradient.addColorStop(
+        .4,
+        "#9eeeff"
+    );
+
+
+    iceGradient.addColorStop(
+        1,
+        "#3c9edc"
+    );
+
+
+    ctx.fillStyle =
+        iceGradient;
+
+
+    ctx.strokeStyle =
+        "rgba(180,245,255,.85)";
+
+
+    ctx.lineWidth=1.5;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        -iceWidth,
+        iceHeight*.45
+    );
+
+
+    ctx.lineTo(
+        -iceWidth*.75,
+        -iceHeight*.35
+    );
+
+
+    ctx.lineTo(
+        -iceWidth*.48,
+        -iceHeight*.72
+    );
+
+
+    ctx.lineTo(
+        -iceWidth*.18,
+        -iceHeight*.32
+    );
+
+
+    ctx.lineTo(
+        iceWidth*.10,
+        -iceHeight*.75
+    );
+
+
+    ctx.lineTo(
+        iceWidth*.34,
+        -iceHeight*.30
+    );
+
+
+    ctx.lineTo(
+        iceWidth*.65,
+        -iceHeight*.62
+    );
+
+
+    ctx.lineTo(
+        iceWidth,
+        iceHeight*.40
+    );
+
+
+    ctx.closePath();
+
+
+    ctx.fill();
+    ctx.stroke();
+
+
+    /* =====================================
+       ICE CRACKS
+    ===================================== */
+
+    ctx.strokeStyle =
+        "rgba(235,255,255,.7)";
+
+
+    ctx.lineWidth=1;
+
+
+    for(
+        let i=0;
+        i<4;
+        i++
+    ){
+
+        const x =
+            -iceWidth*.65+
+            i*iceWidth*.4;
+
+
+        ctx.beginPath();
+
+
+        ctx.moveTo(
+            x,
+            -iceHeight*.2
+        );
+
+
+        ctx.lineTo(
+            x+random(-8,8),
+            iceHeight*.15
+        );
+
+
+        ctx.lineTo(
+            x+random(-10,10),
+            iceHeight*.35
+        );
+
+
+        ctx.stroke();
+    }
+
+
+    /* =====================================
+       LITTLE SNOW SPARKLES
+    ===================================== */
+
+    for(
+        let i=0;
+        i<5;
+        i++
+    ){
+
+        const angle =
+            time*(
+                .4+
+                i*.08
+            )+
+            i;
+
+
+        const sx =
+            Math.cos(angle)*
+            (
+                55+
+                i*5
+            );
+
+
+        const sy =
+            -20+
+            Math.sin(angle*1.7)*
+            12;
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            sx,
+            sy,
+            1.5,
+            0,
+            Math.PI*2
+        );
+
+
+        ctx.fillStyle =
+            "rgba(210,250,255,.8)";
+
+
+        ctx.fill();
+    }
+
+
+    ctx.restore();
+}
+
+
+/* =========================================================
+   BURNER + FLAME
+========================================================= */
+
+function drawBurner(){
+
+    const bottom =
+        chamber.cy+
+        chamber.ry;
+
+
+    const burnerY =
+        bottom+37;
+
+
+    /*
+       IMPORTANT:
+       No flame at 300 K or below.
+       Ice replaces the heat source visually.
+    */
+
+    if(
+        temperature<=300
+    ){
+
+        drawIce();
+
+
+        /*
+           Keep a very subtle cold support
+           beneath the chamber.
+        */
+
+        ctx.fillStyle =
+            "rgba(40,110,150,.16)";
+
+
+        ctx.beginPath();
+
+
+        ctx.ellipse(
+
+            chamber.cx,
+            burnerY+10,
+
+            50,
+            8,
+
+            0,
+            0,
+            Math.PI*2
+        );
+
+
+        ctx.fill();
+
+
+        return;
+    }
+
+
+    /* =====================================
+       HEAT GLOW
+    ===================================== */
+
+    const intensity =
+        (
+            temperature-300
+        )/300;
+
+
+    const flicker =
+        Math.sin(
+            performance.now()*.012
+        )*.12+
+
+        Math.sin(
+            performance.now()*.021
+        )*.08;
+
+
+    const glowSize =
+        75+
+        intensity*35+
+        flicker*20;
+
+
+    const glow =
+        ctx.createRadialGradient(
+
+            chamber.cx,
+            burnerY-10,
+
+            2,
+
+            chamber.cx,
+            burnerY-10,
+
+            glowSize
+        );
+
+
+    glow.addColorStop(
+
+        0,
+
+        `rgba(
+            255,
+            140,
+            45,
+            ${.20+intensity*.15}
+        )`
+    );
+
+
+    glow.addColorStop(
+
+        .45,
+
+        `rgba(
+            255,
+            100,
+            30,
+            ${.08+intensity*.08}
+        )`
+    );
+
+
+    glow.addColorStop(
+
+        1,
+
+        "rgba(255,70,20,0)"
+    );
+
+
+    ctx.fillStyle =
+        glow;
+
+
+    ctx.fillRect(
+
+        chamber.cx-130,
+        burnerY-110,
+
+        260,
+        130
+    );
+
+
+    /* =====================================
+       BURNER BODY
+    ===================================== */
+
+    ctx.fillStyle =
+        "rgba(18,31,43,.95)";
+
+
+    ctx.strokeStyle =
+        "rgba(90,160,190,.55)";
+
+
+    ctx.lineWidth=2;
+
+
+    ctx.beginPath();
+
+
+    ctx.roundRect(
+
+        chamber.cx-55,
+        burnerY+4,
+
+        110,
+        22,
+
+        7
+    );
+
+
+    ctx.fill();
+    ctx.stroke();
+
+
+    /* =====================================
+       BURNER TOP
+    ===================================== */
+
+    ctx.beginPath();
+
+
+    ctx.ellipse(
+
+        chamber.cx,
+        burnerY+4,
+
+        42,
+        9,
+
+        0,
+        0,
+        Math.PI*2
+    );
+
+
+    ctx.fillStyle =
+        "#152b3b";
+
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "rgba(100,190,220,.6)";
+
+
+    ctx.stroke();
+
+
+    /* =====================================
+       FLAME
+    ===================================== */
+
+    const baseHeight =
+        20+
+        intensity*48;
+
+
+    const flameHeight =
+        baseHeight+
+        flicker*5;
+
+
+    const flameWidth =
+        12+
+        intensity*14+
+        flicker*2;
+
+
+    const sway =
+        flicker*
+        (
+            4+
+            intensity*6
+        );
+
+
+    /* Outer flame */
+
+    const flameGradient =
+        ctx.createLinearGradient(
+
+            0,
+            burnerY-flameHeight,
+
+            0,
+            burnerY
+        );
+
+
+    flameGradient.addColorStop(
+        0,
+        "#fffbd0"
+    );
+
+
+    flameGradient.addColorStop(
+        .30,
+        "#fff17a"
+    );
+
+
+    flameGradient.addColorStop(
+        .60,
+        "#ffc83d"
+    );
+
+
+    flameGradient.addColorStop(
+        1,
+        "#ff6b20"
+    );
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        chamber.cx,
+        burnerY
+    );
+
+
+    ctx.bezierCurveTo(
+
+        chamber.cx-
+        flameWidth+
+        sway,
+
+        burnerY-
+        flameHeight*.25,
+
+        chamber.cx-
+        flameWidth*.85+
+        sway*.5,
+
+        burnerY-
+        flameHeight*.55,
+
+        chamber.cx+
+        sway*.35,
+
+        burnerY-
+        flameHeight
+    );
+
+
+    ctx.bezierCurveTo(
+
+        chamber.cx+
+        flameWidth*.9+
+        sway*.5,
+
+        burnerY-
+        flameHeight*.62,
+
+        chamber.cx+
+        flameWidth+
+        sway,
+
+        burnerY-
+        flameHeight*.28,
+
+        chamber.cx,
+        burnerY
+    );
+
+
+    ctx.fillStyle =
+        flameGradient;
+
+
+    ctx.shadowColor =
+        "#ff9a30";
+
+
+    ctx.shadowBlur =
+        14+
+        intensity*18+
+        Math.abs(flicker)*8;
+
+
+    ctx.fill();
+
+
+    ctx.shadowBlur=0;
+
+
+    /* =====================================
+       INNER BLUE FLAME
+    ===================================== */
+
+    const innerHeight =
+        flameHeight*
+        (
+            .48+
+            flicker*.025
+        );
+
+
+    const innerWidth =
+        flameWidth*.45;
+
+
+    const innerSway =
+        sway*.45;
+
+
+    const innerGradient =
+        ctx.createLinearGradient(
+
+            0,
+            burnerY-innerHeight,
+
+            0,
+            burnerY
+        );
+
+
+    innerGradient.addColorStop(
+        0,
+        "#dfffff"
+    );
+
+
+    innerGradient.addColorStop(
+        .45,
+        "#63e5ff"
+    );
+
+
+    innerGradient.addColorStop(
+        1,
+        "#2498ff"
+    );
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        chamber.cx,
+        burnerY
+    );
+
+
+    ctx.bezierCurveTo(
+
+        chamber.cx-
+        innerWidth+
+        innerSway,
+
+        burnerY-
+        innerHeight*.25,
+
+        chamber.cx-
+        innerWidth*.7+
+        innerSway,
+
+        burnerY-
+        innerHeight*.65,
+
+        chamber.cx+
+        innerSway*.4,
+
+        burnerY-
+        innerHeight
+    );
+
+
+    ctx.bezierCurveTo(
+
+        chamber.cx+
+        innerWidth*.7+
+        innerSway,
+
+        burnerY-
+        innerHeight*.65,
+
+        chamber.cx+
+        innerWidth+
+        innerSway,
+
+        burnerY-
+        innerHeight*.25,
+
+        chamber.cx,
+        burnerY
+    );
+
+
+    ctx.fillStyle =
+        innerGradient;
+
+
+    ctx.shadowColor =
+        "#55ddff";
+
+
+    ctx.shadowBlur =
+        10+
+        Math.abs(flicker)*5;
+
+
+    ctx.fill();
+
+
+    ctx.shadowBlur=0;
+
+
+    /* =====================================
+       HOT CORE
+    ===================================== */
+
+    const coreHeight =
+        innerHeight*.48;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+
+        chamber.cx+
+        innerSway*.35,
+
+        burnerY
+    );
+
+
+    ctx.bezierCurveTo(
+
+        chamber.cx-3+
+        innerSway,
+
+        burnerY-
+        coreHeight*.35,
+
+        chamber.cx-2+
+        innerSway,
+
+        burnerY-
+        coreHeight*.70,
+
+        chamber.cx+
+        innerSway*.25,
+
+        burnerY-
+        coreHeight
+    );
+
+
+    ctx.bezierCurveTo(
+
+        chamber.cx+3+
+        innerSway,
+
+        burnerY-
+        coreHeight*.70,
+
+        chamber.cx+4+
+        innerSway,
+
+        burnerY-
+        coreHeight*.35,
+
+        chamber.cx+
+        innerSway*.35,
+
+        burnerY
+    );
+
+
+    ctx.fillStyle =
+        "rgba(255,255,220,.90)";
+
+
+    ctx.fill();
+}
+
+
+/* =========================================================
+   LAB BACKGROUND
+========================================================= */
+
+function drawLabBackground(){
+
+    const shelfX =
+        canvasWidth-170;
+
+
+    const shelfY =
+        canvasHeight-130;
+
+
+    ctx.strokeStyle =
+        "rgba(90,150,180,.13)";
+
+
+    ctx.lineWidth=2;
+
+
+    for(
+        let i=0;
+        i<3;
+        i++
+    ){
+
+        ctx.beginPath();
+
+
+        ctx.moveTo(
+
+            shelfX,
+            shelfY+
+            i*32
+        );
+
+
+        ctx.lineTo(
+
+            shelfX+125,
+            shelfY+
+            i*32
+        );
+
+
+        ctx.stroke();
+    }
+
+
+    for(
+        let i=0;
+        i<5;
+        i++
+    ){
+
+        const bx =
+            shelfX+
+            8+
+            i*24;
+
+
+        const by =
+            shelfY-12;
+
+
+        ctx.fillStyle =
+            "rgba(70,150,190,.16)";
+
+
+        ctx.fillRect(
+
+            bx,
+            by,
+
+            12,
+            12
+        );
+
+
+        ctx.strokeStyle =
+            "rgba(100,190,220,.22)";
+
+
+        ctx.strokeRect(
+
+            bx,
+            by,
+
+            12,
+            12
+        );
+    }
+}
+
+
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+let lastTime =
+    performance.now();
+
+
+function animationLoop(now){
+
+    let dt =
+        (now-lastTime)/1000;
+
+
+    lastTime =
+        now;
+
+
+    dt =
+        Math.min(
+            dt,
+            .035
+        );
+
+
+    updateChamber();
+
+
+    /* Clear */
+
+    ctx.clearRect(
+
+        0,
+        0,
+
+        canvasWidth,
+        canvasHeight
+    );
+
+
+    /* Background */
+
+    drawLabBackground();
+
+
+    /* Burner / ice */
+
+    drawBurner();
+
+
+    /* Chamber */
+
+    drawChamber();
+
+
+    /* Inlet */
+
+    drawInletTube();
+
+
+    /* Particles */
+
+    particles.forEach(
+        p=>p.update(dt)
+    );
+
+
+    /* Elastic collisions */
+
+    handleParticleCollisions();
+
+
+    /* Draw particles */
+
+    particles.forEach(
+        p=>p.draw()
+    );
+
+
+    /* =====================================
+       FRONT GLASS EDGE
+    ===================================== */
+
+    const bottom =
+        chamber.cy+
+        chamber.ry;
+
+
+    ctx.strokeStyle =
+        "rgba(150,235,255,.23)";
+
+
+    ctx.lineWidth=1;
+
+
+    ctx.beginPath();
+
+
+    ctx.ellipse(
+
+        chamber.cx,
+        bottom,
+
+        chamber.rx,
+        chamber.rx*.27,
+
+        0,
+        0,
+        Math.PI
+    );
+
+
+    ctx.stroke();
+
+
+    requestAnimationFrame(
+        animationLoop
+    );
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+resizeCanvas();
+
+updateTemperatureUI();
+
+updateParticleCount();
+
+requestAnimationFrame(
+    animationLoop
+);
+
+</script>
+
+</body>
+</html>
+```
